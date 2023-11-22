@@ -10,6 +10,32 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
+export async function fetchInvoiceCount() {
+  try {
+    const invoiceCount = await sql`SELECT COUNT(*) FROM invoices`;
+
+    // console.log('Data fetch complete after 3 seconds.');
+
+    return invoiceCount;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoiceCount');
+  }
+}
+
+export async function fetchCustomerCount() {
+  try {
+    const customerCount = await sql`SELECT COUNT(*) FROM customers`;
+
+    // console.log('Data fetch complete after 3 seconds.');
+
+    return customerCount;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch customerCount');
+  }
+}
+
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
