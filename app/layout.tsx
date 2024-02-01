@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import Head from "next/head";
 import Header from "@/app/components/Header";
 import SideBarLeft from "@/app/components/SideBarLeft";
+import HeaderTitle from "@/app/components/HeaderTitle";
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +34,7 @@ export default function RootLayout({
           <link rel="icon" href="/xRoidFavicon.ico"/>
         </Head>
         <div className='bg-white h-full relative'>
-          <Header/>
+          <Header headerTitle={<HeaderTitle/>}/>
           <div className='flex flex-row w-full'>
             <div className='mt-16'
                  // ref={leftRef}

@@ -3,6 +3,8 @@
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar";
 import {Box, MenuItem, styled, Toolbar} from "@mui/material";
 import EnvButtonWithMenu from "@/app/components/EnvButtonWithMenu";
+import {ReactNode} from "react";
+
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
 }
@@ -27,7 +29,12 @@ const AppBar = styled(MuiAppBar, {
         }),
     }),
 }));
-export default function Header() {
+
+interface Props {
+    headerTitle?: string | ReactNode
+}
+
+export default function Header({headerTitle}: Props) {
     return (
         <AppBar position="fixed">
             <Toolbar className={"flex justify-between"}>
@@ -36,16 +43,17 @@ export default function Header() {
                         {/*{*/}
                         {/*    isSaveButtonShowed*/}
                         {/*        ? */}
-                                <>
-                                    <img src={'/title.png'} alt={'title-img'} className={'w-8'}/>
-                                    <HeaderTitle/>
-                                </>
+                        {/*        <>*/}
+                        {/*            <img src={'/title.png'} alt={'title-img'} className={'w-8'}/>*/}
+                        {/*            <HeaderTitle/>*/}
+                        {/*        </>*/}
                         {/*        : <>*/}
                         {/*            <img src={'/title.png'} alt={'title-img'} className={'w-8'}/>*/}
                         {/*            {title}*/}
                         {/*        </>*/}
 
                         {/*}*/}
+                        {headerTitle}
                     </label>
                 </Box>
                 {/*{*/}
@@ -63,28 +71,28 @@ export default function Header() {
                         // />
                         // !isProd()
                         //     &&
-                            <EnvButtonWithMenu
-                                MenuItems={
-                                    [
-                                        <MenuItem key={"mentoroid"}
-                                                  onClick={() => window.open(process.env.NEXT_PUBLIC_MENTOROID_API + '/docs', "_blank", 'noopener, noreferrer')}>
-                                            Mentoroid API
-                                        </MenuItem>,
-                                        <MenuItem key={'enecolor'}
-                                                  onClick={() => window.open(process.env.NEXT_PUBLIC_ENECOLOR_API + '/docs', "_blank", 'noopener, noreferrer')}>
-                                            Enecolor API
-                                        </MenuItem>,
-                                        <MenuItem key={'MENTOROID_CONSOLE'}
-                                                  onClick={() => window.open(process.env.NEXT_PUBLIC_MENTOROID_CONSOLE_URL, "_blank", 'noopener, noreferrer')}>
-                                            Mentoroid Console
-                                        </MenuItem>,
-                                        <MenuItem key={'GENIAM_CONSOLE'}
-                                                  onClick={() => window.open(process.env.NEXT_PUBLIC_GENIAM_CONSOLE_URL, "_blank", 'noopener, noreferrer')}>
-                                            Geniam Console
-                                        </MenuItem>,
-                                    ]
-                                }
-                            />
+                        <EnvButtonWithMenu
+                            MenuItems={
+                                [
+                                    <MenuItem key={"mentoroid"}
+                                              onClick={() => window.open(process.env.NEXT_PUBLIC_MENTOROID_API + '/docs', "_blank", 'noopener, noreferrer')}>
+                                        Mentoroid API
+                                    </MenuItem>,
+                                    <MenuItem key={'enecolor'}
+                                              onClick={() => window.open(process.env.NEXT_PUBLIC_ENECOLOR_API + '/docs', "_blank", 'noopener, noreferrer')}>
+                                        Enecolor API
+                                    </MenuItem>,
+                                    <MenuItem key={'MENTOROID_CONSOLE'}
+                                              onClick={() => window.open(process.env.NEXT_PUBLIC_MENTOROID_CONSOLE_URL, "_blank", 'noopener, noreferrer')}>
+                                        Mentoroid Console
+                                    </MenuItem>,
+                                    <MenuItem key={'GENIAM_CONSOLE'}
+                                              onClick={() => window.open(process.env.NEXT_PUBLIC_GENIAM_CONSOLE_URL, "_blank", 'noopener, noreferrer')}>
+                                        Geniam Console
+                                    </MenuItem>,
+                                ]
+                            }
+                        />
                     }
                     {/*{*/}
                     {/*    router.query?.createChapter && router.query?.createChapter !== 'createChapter' &&*/}

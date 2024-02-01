@@ -1,0 +1,10 @@
+export default function HeaderTitle() {
+    const title = process.env.NODE_ENV === "production" ? 'Xroid Studio β' : '[dev] Xroid Studio β'
+    console.log(title)
+    return (
+        <>
+            <img src={'/title.png'} alt={'title-img'} className={'w-8'}/>
+            {title}
+        </>
+    )
+}
