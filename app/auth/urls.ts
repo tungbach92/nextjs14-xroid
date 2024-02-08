@@ -1,0 +1,65 @@
+export let API_PREFIX = process.env.NEXT_PUBLIC_API;
+export let BASE_API_URL = process.env.NEXT_PUBLIC_MENTOROID_API
+export let BASE_API_URL_V2 = process.env.NEXT_PUBLIC_MENTOROID_API + '/v2';
+export let METAMORS_PREFIX = process.env.REACT_APP_METAMORS_PREFIX;
+export let MENTOROID_PREFIX = process.env.NEXT_PUBLIC_HOME_PAGE;
+export let MYACCOUNT_PREFIX = process.env.NEXT_PUBLIC_MY_ACCOUNT;
+
+export const HEALTHCHECK_URL = API_PREFIX + "/healthcheck";
+export const REGISTER_EMAIL = API_PREFIX + "/signup";
+export const REGISTER = API_PREFIX + "/signup2";
+export const LOGIN_EMAIL = API_PREFIX + "/login";
+export const LOGIN_EMAIL_V2 = API_PREFIX + "/login-xroid";
+export const LOGIN = API_PREFIX + "/login2";
+export const USER_INFO = API_PREFIX + "/getuserdata";
+export const CHANGE_ACCOUNT_INFO_URL = API_PREFIX + "/change-account-info";
+export const UPDATE_USER_DATA_URL = API_PREFIX + "/updateuserdata";
+export const LOGOUT_URL = API_PREFIX + "/logout";
+export const FORGOT_PASSWORD_URL = API_PREFIX + "/forgot-password";
+export const FORGOT_PASSWORD2_URL = API_PREFIX + "/forgot-password2";
+export const SECURITY_INFO_URL = API_PREFIX + "/security";
+export const CHANGE_MFA_VERIFY_URL = API_PREFIX + "/security/change-mfa-verify";
+export const CHANGE_PASSWORD_URL = API_PREFIX + "/security/change-password";
+export const MAIL_MAGAZINE_INFO_URL = API_PREFIX + "/mail_magazine";
+export const MAIL_ADDRESS_LIST_URL = API_PREFIX + "/mail";
+export const BASIC_BLOOD_TYPE_URL = API_PREFIX + "/basic_data/blood_type";
+export const BASIC_PRONOUN_URL = API_PREFIX + "/basic_data/pronoun";
+export const SERVICE_LIST_URL = API_PREFIX + "/service";
+export const SERVICE_UNREGIST_URL = API_PREFIX + "/service/unregist";
+export const REFRESH_TOKEN_URL = API_PREFIX + "/refresh";
+export const GET_TERMS_URL = API_PREFIX + "/get-terms";
+export const CHANGE_MAIL_URL = API_PREFIX + "/change-mail";
+export const INQUIRY_URL = API_PREFIX + "/inquiry";
+export const INQUIRY_TYPES_URL = API_PREFIX + "/inquiry/types";
+export const USER_AVATAR_UPLOAD_URL = API_PREFIX + '/user/avatar';
+export const ACCOUNT_DELIVERY_ADDRESS = API_PREFIX + '/account/delivery-address';
+export const CHECK_EMAIL_EXISTS_URL = API_PREFIX + '/mail/checkEmailExists';
+export const DELETE_ACCOUNT = API_PREFIX + '/account/delete'
+export const RESTORE_ACCOUNT = API_PREFIX + '/account/restore'
+
+export const BIND_LINE_URL = API_PREFIX + '/bind_line';
+export const CREATE_DATA_STRUCTURE = BASE_API_URL + '/v2/data-structure/create';
+export const DELETE_DATA_STRUCTURE = BASE_API_URL + '/v2/data-structure/delete';
+export const CREATE_TEXT = BASE_API_URL + '/v2/texts/create';
+export const GET_ALL_TEXT = BASE_API_URL + '/v2/texts';
+
+export const ADMIN_BANNER = BASE_API_URL + '/v2/banners';
+export const ADMIN_POPUP = BASE_API_URL + '/v2/popups';
+
+export const DATA_STRUCTURE_URL = BASE_API_URL_V2 + '/data-structure';
+export const CHAPTER_API_V2 = BASE_API_URL_V2 + '/chapters';
+export const USER = BASE_API_URL_V2 + '/user';
+export const CONTENTS = BASE_API_URL_V2 + '/contents';
+export const SLIDE_URL = BASE_API_URL_V2 + '/slides';
+export const BANNER_URL = BASE_API_URL_V2 + '/banners';
+export const POPUP_URL = BASE_API_URL_V2 + '/popups';
+export const STUDIO_URL = BASE_API_URL_V2 + '/studios';
+export const CATEGORIES_URL = BASE_API_URL_V2 + '/categories';
+export const ENECOLOR_RANK_SETTING = BASE_API_URL_V2 + '/enecolorRanks';
+
+export const CHARACTER = BASE_API_URL_V2 + '/characters';
+export const OGP = BASE_API_URL_V2 + '/ogp';
+export const EXTRA_CHAPTER = BASE_API_URL_V2 + '/extra-chapters';
+export const ROIDS_TEMPLATE = BASE_API_URL_V2 + '/uRoids';
+export const ENECOLORS = BASE_API_URL_V2 + '/enecolors';
+export const ASSOCIATE_AI = BASE_API_URL_V2 + '/qaDocuments-structs';

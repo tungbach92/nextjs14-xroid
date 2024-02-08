@@ -1,14 +1,23 @@
+'use client'
+
+import {useTitle} from "@/app/hooks/useTitle";
 import Head from "next/head";
+import HomePage from "@/app/components/Home/HomePage";
+import React from "react";
+import {Metadata} from "next";
+
+// export const metadata: Metadata = {
+//   title: 'Invoices',
+// };
 
 export default function ContentsPage() {
-    const title = process.env.NODE_ENV === "production" ? 'Xroid Studio β' : '[dev] Xroid Studio β'
-    return (
-        <>
-            <Head>
-                <title>{title} - Content</title>
-            </Head>
-            <div>Hello contents</div>
-            {/*<HomePage/>*/}
-        </>
-    );
+  const title = useTitle();
+  return (
+    <>
+      <Head>
+        <title>{title} - Content</title>
+      </Head>
+      <HomePage/>
+    </>
+  );
 }

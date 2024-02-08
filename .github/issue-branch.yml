@@ -1,0 +1,5 @@
+openPR: true
+copyIssueLabelsToPR: true
+copyIssueAssigneeToPR: true
+autoCloseIssue: true
+copyIssueDescriptionToPR: true

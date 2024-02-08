@@ -1,0 +1,16 @@
+name: Tracking PR Info
+
+on:
+  pull_request:
+    branches:
+      - main
+      - devs/*
+      - releases/*
+    types: [ opened, reopened ]
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  write-body-and-add-label:
+    name: Write body tracking ${{ github.head_ref }} to ${{ github.base_ref }}
+    uses: Andom-Geniam/reusable-workflows/.github/workflows/tracking-pr-info.yaml@main

@@ -1,0 +1,21 @@
+steps:
+  - name: 'docker'
+    args: [ 'build', '-t', 'asia-docker.pkg.dev/togo-a2894/front-end/studio','-f' , 'Dockerfile' , '.' ]
+  # Push the container image to Container Registry
+  - name: 'docker'
+    args: [ 'push', 'asia-docker.pkg.dev/togo-a2894/front-end/studio' ]
+  #  Deploy container image to Cloud Run
+  - name: 'google/cloud-sdk:alpine'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'studio'
+      - '--image=asia-docker.pkg.dev/togo-a2894/front-end/studio'
+      - '--region=asia-northeast1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+images:
+  - asia-docker.pkg.dev/togo-a2894/front-end/studio
+options:
+  machineType: 'N1_HIGHCPU_8'

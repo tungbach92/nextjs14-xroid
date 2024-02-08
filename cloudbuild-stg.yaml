@@ -1,0 +1,21 @@
+steps:
+  - name: 'docker'
+    args: [ 'build', '-t', 'asia-docker.pkg.dev/mentoroid-dev/front-end/studio-stg','-f' , 'Dockerfile-stg' , '.' ]
+  # Push the container image to Container Registry
+  - name: 'docker'
+    args: [ 'push', 'asia-docker.pkg.dev/mentoroid-dev/front-end/studio-stg' ]
+  #  Deploy container image to Cloud Run
+  - name: 'google/cloud-sdk:alpine'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'studio-stg'
+      - '--image=asia-docker.pkg.dev/mentoroid-dev/front-end/studio-stg'
+      - '--region=asia-northeast1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+images:
+  - asia-docker.pkg.dev/mentoroid-dev/front-end/studio-stg
+options:
+  machineType: 'N1_HIGHCPU_8'

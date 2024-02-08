@@ -1,0 +1,15 @@
+name: What Changes
+
+on:
+  pull_request:
+    branches:
+      - main
+      - devs/*
+      - releases/*
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  show-changes:
+    name: Show Changes
+    uses: Andom-Geniam/reusable-workflows/.github/workflows/what-changes.yaml@main

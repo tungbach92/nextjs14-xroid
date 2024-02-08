@@ -1,0 +1,37 @@
+.main {
+  padding: 0 2rem;
+  background: #F5F7FB;
+}
+
+.body {
+  background: #F5F7FB;
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textLogin {
+    font-family: 'Outfit', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 116.7%;
+    color: #182344;
+    text-align: center;
+    padding: 10px;
+}
+
+.container {
+  margin: auto;
+  width: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 20px;
+  background: #F3F3F3;
+  box-shadow: 0px 12px 32px 4px rgba(0, 27, 71, 0.12);
+  border-radius: 20px;
+}

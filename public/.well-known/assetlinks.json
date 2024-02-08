@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.geniam.mentoroid",
+      "sha256_cert_fingerprints": [
+        "6E:52:68:08:AF:5E:19:DC:75:94:A1:7D:96:6C:61:E3:D5:CE:04:55:15:E6:4D:1D:E4:E1:13:15:9C:EC:0D:55",
+        "BF:80:9E:2B:A7:8E:F5:D1:4D:E6:DD:0D:D4:72:6B:0F:BF:10:E6:EA:98:F4:C5:75:06:4D:E1:36:99:1B:6B:92"
+      ]
+    }
+  }
+]

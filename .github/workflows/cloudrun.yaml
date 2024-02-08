@@ -1,0 +1,92 @@
+name: CloudRun
+
+on:
+  pull_request:
+    branches:
+      - stg
+      - devs/*
+      - releases/*
+      - main
+  push:
+    branches:
+      - stg
+      - devs/*
+      - releases/*
+      - main
+
+env:
+  BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
+jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set build env
+        id: set-env
+        run: |
+          isProdBuild=${{ (env.BRANCH_NAME == 'main' || startsWith(env.BRANCH_NAME, 'releases/')) && 'yes' || 'no' }}
+          echo "isProdBuild=$isProdBuild"
+          if [ $isProdBuild == 'yes' ]
+          then
+            echo "dockerFile=Dockerfile" >> $GITHUB_OUTPUT
+            echo "projectId=togo-a2894" >> $GITHUB_OUTPUT
+          else
+            echo "dockerFile=Dockerfile-stg" >> $GITHUB_OUTPUT
+            echo "projectId=mentoroid-dev" >> $GITHUB_OUTPUT
+          fi
+
+          isLiveBuild=${{ github.event_name == 'push' && 'yes' || 'no' }}
+          echo "isLiveBuild=$isLiveBuild"
+          if [ $isLiveBuild == 'yes' ]
+          then
+            echo "suffix=''" >> $GITHUB_OUTPUT
+            echo "tag=''" >> $GITHUB_OUTPUT
+            echo "runRegion=asia-northeast1" >> $GITHUB_OUTPUT
+            if [ $isProdBuild == 'yes' ]
+            then
+              echo "runService=studio" >> $GITHUB_OUTPUT
+            else
+              echo "runService=studio-stg" >> $GITHUB_OUTPUT
+            fi
+          else
+            SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+            echo "suffix=pr${{ github.event.pull_request.number }}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+            echo "tag=pr${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "runRegion=asia-southeast1" >> $GITHUB_OUTPUT
+            if [ $isProdBuild == 'yes' ]
+            then
+              echo "runService=studio-preview" >> $GITHUB_OUTPUT
+            else
+              echo "runService=studio-stg-preview" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+          echo "isProdBuild=$isProdBuild" >> $GITHUB_OUTPUT
+          echo "isLiveBuild=$isLiveBuild" >> $GITHUB_OUTPUT
+    outputs:
+      isLiveBuild: ${{ steps.set-env.outputs.isLiveBuild }}
+      isProdBuild: ${{ steps.set-env.outputs.isProdBuild }}
+      suffix: ${{ steps.set-env.outputs.suffix }}
+      tag: ${{ steps.set-env.outputs.tag }}
+      projectId: ${{ steps.set-env.outputs.projectId }}  # TODO: update Google Cloud project id
+      garLocation: asia # TODO: update Artifact Registry location
+      garRepository: front-end # TODO: update Artifact Registry repository name
+      dockerFile: ${{ steps.set-env.outputs.dockerFile }} # TODO: update Dockerfile name
+      runService: ${{ steps.set-env.outputs.runService }} # TODO: update Cloud Run service name
+      runRegion: ${{ steps.set-env.outputs.runRegion }} # TODO: update Cloud Run service region
+  reuse-wf:
+    needs: set-env
+    uses: Andom-Geniam/reusable-workflows/.github/workflows/cloudrun.yaml@main
+    with:
+      isLiveBuild: ${{ needs.set-env.outputs.isLiveBuild }}
+      isProdBuild: ${{ needs.set-env.outputs.isProdBuild }}
+      suffix: ${{ needs.set-env.outputs.suffix }}
+      tag: ${{ needs.set-env.outputs.tag }}
+      projectId: ${{ needs.set-env.outputs.projectId }}
+      garLocation: ${{ needs.set-env.outputs.garLocation }}
+      garRepository: ${{ needs.set-env.outputs.garRepository }}
+      dockerFile: ${{ needs.set-env.outputs.dockerFile }}
+      runService: ${{ needs.set-env.outputs.runService }}
+      runRegion: ${{ needs.set-env.outputs.runRegion }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+      gcp_credentials: ${{ needs.set-env.outputs.isProdBuild == 'yes' && secrets.TOGO_A2894_40E41978EBFB || secrets.MENTOROID_DEV_F94677071842 }}

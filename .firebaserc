@@ -1,0 +1,30 @@
+{
+  "projects": {
+    "dev": "mentoroid-dev",
+    "prod": "togo-a2894",
+    "default": "togo-a2894"
+  },
+  "targets": {
+    "mentoroid-dev": {
+      "hosting": {
+        "mentoroid-admin-v2-stg": [
+          "mentoroid-admin-v2-stg"
+        ],
+        "studio-geniam-dev": [
+          "studio-geniam-dev"
+        ]
+      }
+    },
+    "togo-a2894": {
+      "hosting": {
+        "mentoroid-admin-v2-2fde4": [
+          "mentoroid-admin-v2-2fde4"
+        ],
+        "studio-geniam": [
+          "studio-geniam"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

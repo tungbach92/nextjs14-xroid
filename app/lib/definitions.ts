@@ -7,6 +7,11 @@
 // import {plans} from "@src/configs/constants";
 // import {separateSettings} from "@src/types/commonType"
 
+import {plans} from "./constants";
+import {Block} from "@/app/types/block";
+import {PurchaseSetting} from "@/app/common/chapterPurchaseSetting";
+import { separateSettings } from "@/app/types/commonType";
+
 export type User = {
   id: string;
   name: string;
@@ -383,3 +388,4 @@ export interface Studio {
 
 
 export type Plan = typeof plans[number]
+
