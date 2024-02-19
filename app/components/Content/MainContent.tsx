@@ -6,7 +6,7 @@ import BillingContentDialog from "@/app/components/Content/dialog/BillingContent
 import useContent from "@/app/hooks/useContent";
 import useStructureData from "@/app/hooks/useStructureData";
 import {useAtom, useAtomValue} from "jotai";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import ViewOptionsContent from "@/app/components/Content/ViewOptionsContent";
 import MentoroidListContent from "@/app/components/Content/MentoroidListContent";
 import {Content, ContentState} from "@/app/types/content";
@@ -35,7 +35,7 @@ import CustomizedSwitch from "@/app/components/base/CustomizedSwitch";
 import {isProd, plans} from "@/app/configs/constants";
 import {updateContent} from "@/app/common/commonApis/contentsApi";
 import {saveError, saveSuccess} from "@/app/services/content";
-import {CF_EMAIL, OWNER_EMAILS, OWNER_ID} from "../../../common/ownerId";
+import {CF_EMAIL, OWNER_EMAILS, OWNER_ID} from "@/common/ownerId";
 import {changeStateValueSetting} from "@/app/common/chapterPurchaseSetting";
 import KudenEmbedComp from "@/app/components/custom/chapter/contents/component/KudenEmbedComp";
 import ListButtonAddNewTypeOfChapter from "@/app/components/Content/custom/ListButtonAddNewTypeOfChapter";
@@ -56,7 +56,8 @@ function MainContent({id, subFolder}: MainContentProps) {
   useCharacters()
   const selectedFolder = useAtomValue(selectedFolderAtom);
   const router = useRouter();
-  const courseId = router.query.contentId as string;
+  const searchParams = useSearchParams()
+  const courseId = searchParams.get('contentId') as string;
   const {content, setContent, loading: contentLoading} = useContent(id);
   // const {isOpenModal, toggleOpenModal} = useModal();
   // const selectedDataStructureContent = useAtomValue(selectedDataStructureContentAtom)

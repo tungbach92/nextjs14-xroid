@@ -10,7 +10,6 @@ import ActionIcon from "@/app/common/data/svgData/action-icon.svg";
 import ImageCustom from "@/app/components/custom/ImageCustom";
 import {PreviewImageModal} from "@/app/components/imagePage/widgets";
 import {BaseDeleteModal} from "@/app/components/base";
-import SideBarRight from "@src/components/Layout/Sidebar/side-bar-right";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useAtom} from "jotai";
@@ -25,6 +24,7 @@ import ReactPlayer from "react-player";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {Image} from "@/app/types/types";
 import {ImageAtom} from "@/app/store/atom/listImages";
+import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
 
 type MainImageProps = {
   subImageFolders?: Folder[]
@@ -54,7 +54,6 @@ const MainImage = ({
   setFolderId
 }: MainImageProps) => {
   const router = useRouter();
-  const {query: {id}} = router;
   const [imageFolders, setImageFolders] = useAtom(imageFoldersAtom)
   const [selectedImageFolder, setSelectedImageFolder] = useAtom(selectedImageFolderAtom)
   const [open, setOpen] = useState(false);

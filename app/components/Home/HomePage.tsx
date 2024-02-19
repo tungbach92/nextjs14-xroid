@@ -1,3 +1,5 @@
+'use client'
+
 import ArrowDown from "@/app/common/data/svgData/arrow-down-icon.svg";
 import ArrowUp from "@/app/common/data/svgData/arrow-up-icon.svg";
 import Layout1 from "@/app/common/data/svgData/layout-icon-1.svg";
@@ -6,7 +8,7 @@ import ButtonGroupCustom from "@/app/components/ButtonCustom";
 import LayoutList from "@/app/components/Home/ContentLayout/LayoutList";
 import LayoutGrid from "@/app/components/Home/ContentLayout/LayoutGrid";
 import React, {useEffect, useMemo, useState} from "react";
-import {useAtom} from "jotai";
+import {useAtom, useAtomValue} from "jotai";
 import {selectedFolderAtom} from "@/app/store/atom/selectedFolder.atom";
 import {toDate} from "@/common/date";
 import {
@@ -28,6 +30,7 @@ import {foldersAtom} from "@/app/store/atom/folders.atom";
 import {layoutAtomWithStorage} from "@/app/store/atom/layout.atom";
 import {arrangeAtomWithStorage} from "@/app/store/atom/arrange.atom";
 import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
+import {axiosConfigs} from "@/app/configs/axios";
 
 
 type Props = {};

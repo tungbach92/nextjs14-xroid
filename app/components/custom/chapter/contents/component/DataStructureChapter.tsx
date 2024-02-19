@@ -3,7 +3,7 @@ import {Chapter, DataStructure} from "@/app/types/types";
 import DataStructureChapterItem from "@/app/components/custom/chapter/contents/component/DataStructureChapterItem";
 import IconButton from "@mui/material/IconButton";
 import {Close} from "@mui/icons-material";
-import Structures from "@/app/componentEndpoint/structures";
+import Structures from "@/app/componentEndpoint/structures/Structures";
 import DialogCustom from "@/app/components/DialogCustom";
 import {structureIdInnChapterAtom} from "@/app/store/atom/structureIdsInChapter.atom";
 import {includes} from "lodash";

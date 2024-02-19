@@ -14,10 +14,10 @@ type Props = {
   idValidate: string[]
   onCopy: (data: DataStructure) => void
   onDelete: (data: DataStructure) => void
-  structureInChapter: DataStructure[]
+  structureInChapter?: DataStructure[]
   setListDataStructure: React.Dispatch<SetStateAction<DataStructure[]>>
-  draftSelectedStructures: DataStructure[];
-  setDraftSelectedStructures: React.Dispatch<SetStateAction<DataStructure[]>>
+  draftSelectedStructures?: DataStructure[];
+  setDraftSelectedStructures?: React.Dispatch<SetStateAction<DataStructure[]>>
   inChapter?: boolean
   inputRef?: any,
   onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>,

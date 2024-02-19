@@ -1,3 +1,5 @@
+'use client'
+
 import React, {SetStateAction, useEffect, useMemo, useRef, useState} from 'react';
 import {Button} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -6,7 +8,6 @@ import {cloneDeep, isEqual, sortBy} from "lodash";
 import {getId} from "@/app/common/getId";
 import LinearProgress from "@mui/material/LinearProgress";
 import {BaseDeleteModal} from "@/app/components/base";
-import SideBarRight from "@src/components/Layout/Sidebar/side-bar-right";
 import {useAtom} from "jotai";
 import {structFoldersAtom} from "@/app/store/atom/folders.atom";
 import {selectedStructureFolderAtom} from "@/app/store/atom/selectedFolder.atom";
@@ -26,11 +27,12 @@ import {InitEnecolor} from "@/app/configs/constants";
 import useEnecolors from "@/app/hooks/useEnecolors";
 import useAdminEnecolors from "@/app/hooks/useAdminEnecolor";
 import {useGetAllUserEnecolor} from "@/app/hooks/useGetAllUserEnecolor";
+import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
 
 interface Props {
-  draftSelectedStructures: DataStructure[];
-  setDraftSelectedStructures: React.Dispatch<SetStateAction<DataStructure[]>>
-  structureInChapter: DataStructure[]
+  draftSelectedStructures?: DataStructure[];
+  setDraftSelectedStructures?: React.Dispatch<SetStateAction<DataStructure[]>>
+  structureInChapter?: DataStructure[]
   inChapter?: boolean
 }
 

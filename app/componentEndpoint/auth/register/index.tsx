@@ -4,7 +4,6 @@ import styles from '../../../styles/Login.module.css'
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
 import TextFieldCustom from "@/app/components/custom/TextFieldCustom";
-import BlankLayout from "@src/components/Layout/BlankLayout";
 import validate from 'validate.js'
 import {registerEmailAsync} from "@/app/auth/api";
 import {REGISTER_KEY} from "@/app/configs/constants";
@@ -139,7 +138,7 @@ export default function Register() {
             }
             <div className={"mt-3.5"}>
               すでにアカウントをお持ちの方は
-              <span onClick={() => router.push('/auth/login')}
+              <span onClick={() => router.push('/login')}
                     className={"text-[#1976D2] cursor-pointer"}>こちら</span>
             </div>
           </div>
@@ -149,6 +148,3 @@ export default function Register() {
 
   );
 }
-
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
-

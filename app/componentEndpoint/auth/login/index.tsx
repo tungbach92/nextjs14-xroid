@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import {ReactNode, useState} from 'react';
 import styles from '../../../styles/Login.module.css'
@@ -314,5 +316,3 @@ export default function Login() {
     </div>
   );
 }
-
-Login.getLayout = (page: ReactNode) => page

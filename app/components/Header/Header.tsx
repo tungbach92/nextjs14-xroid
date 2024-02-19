@@ -88,7 +88,9 @@ function Header({}: Props) {
   useEffect(() => {
     const getDataEnterPrise = async () => {
       try {
+        console.log({userInfo})
         const data = await getEnterprise(userInfo?.user_id)
+        console.log({data})
         setEnterprise(data)
         setIsEnterprise(data?.isEnterprise)
       } catch (e) {
@@ -124,7 +126,7 @@ function Header({}: Props) {
       })
       removeAllTokens();
       removeLoginOrRegisterKeys();
-      router.push("/auth/login")
+      router.push("/login")
     } catch (e) {
       showAxiosError(e);
       console.log(e)

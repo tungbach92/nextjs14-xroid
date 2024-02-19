@@ -1,10 +1,10 @@
-import SideBarRight from "@src/components/Layout/Sidebar/side-bar-right";
 import {PropsWithChildren, useState} from "react";
 import Folder from "@/app/common/data/svgData/folder-open-icon.svg";
 import {Drawer} from "@mui/material";
 import {useAtom} from "jotai";
 import {foldersAtom} from "@/app/store/atom/folders.atom";
 import {selectedFolderAtom} from "@/app/store/atom/selectedFolder.atom";
+import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
 
 interface LayoutSpreadSheetsProps extends PropsWithChildren {
 }

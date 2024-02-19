@@ -1,10 +1,10 @@
 import React from 'react';
 import MainContent from "@/app/components/Content/MainContent";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 function Index() {
-  const router = useRouter()
-  const {contentId}: any = router.query;
+  const query = useSearchParams()
+  const {contentId}: any = query;
   return (
     <MainContent id={contentId}/>
   );

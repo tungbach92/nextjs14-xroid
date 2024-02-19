@@ -69,13 +69,15 @@ export const metadata: Metadata = {
   //   custom: 'meta',
   // },
 }
+axiosConfigs();
 
 function BlankRootLayout({children}: Props) {
-  console.log('server')
   return (
     <html lang="en">
     <body>
-    {children}
+    <div className='w-full h-full bg-gray-200'>
+      {children}
+    </div>
     </body>
     </html>
 

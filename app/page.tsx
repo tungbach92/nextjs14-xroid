@@ -21,7 +21,6 @@ import Head from "next/head";
 import {CF_EMAIL, OWNER_EMAILS} from "@/common/ownerId";
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
 
-axiosConfigs();
 
 
 const unAuthRoute = ["/auth/register", '/auth/login', '/auth/passwordRetrieval']
@@ -29,18 +28,15 @@ const unCheckAuthRoute = ["/auth/register", '/auth/passwordRetrieval']
 const adminPermissionRoute = ["/categories", "/bannerPopup"]
 
 function Page() {
-  console.log('main')
   const router = useRouter()
   const pathName = usePathname()
   const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production'
   const [userInfo] = useAtom<any>(userAtomWithStorage);
   const [user, setUser] = useState(null)
-  const title = useTitle();
 
-  //
-  // useEffect(() => {
-  //   router.push("/contents")
-  // }, [])
+  useEffect(() => {
+    router.push("/contents")
+  }, [])
 
   useEffect(() => {
     if (isProd && pathName && userInfo.email && !(OWNER_EMAILS.includes(userInfo?.email) || userInfo?.email.includes(CF_EMAIL)) && adminPermissionRoute.includes(pathName)) {
@@ -69,7 +65,7 @@ function Page() {
     return onAuthStateChanged(auth,
       (user) => {
         if (!user && pathName && !unCheckAuthRoute.includes(pathName)) {
-          router.push('/auth/login')
+          router.push('/login')
         }
         // @ts-ignore
         setUser(user)

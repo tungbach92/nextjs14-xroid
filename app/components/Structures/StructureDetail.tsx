@@ -6,7 +6,7 @@ import React, {ChangeEvent, SetStateAction, useEffect, useMemo, useState} from "
 import {DataStructure, DataStructureItem} from "@/app/types/types";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {cloneDeep} from "lodash";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {getId} from "@/app/common/getId";
 import {BaseDeleteModal} from "@/app/components/base";
 import DialogCustom from "@/app/components/DialogCustom";
@@ -43,8 +43,8 @@ export const StructureDetail = ({
   draftSelectedStructItemsPrompt,
   isPrompt
 }: IStructureItemDetail) => {
-  const router = useRouter()
-  const structureId = chapterStruct ? chapterStruct.id : router.query.structureId as string
+  const query = useSearchParams()
+  const structureId = chapterStruct ? chapterStruct.id : query.get('structureId') as string
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const [indexDelete, setIndexDelete] = useState<number>(0)
   const [text, setText] = useState('')

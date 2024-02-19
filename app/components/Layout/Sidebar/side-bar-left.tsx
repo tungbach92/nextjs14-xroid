@@ -1,5 +1,4 @@
 'use client'
-
 import {Button, Divider, IconButton, List} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import {CSSObject, styled, Theme} from "@mui/material/styles";
@@ -22,6 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Studio} from "@/app/types/types";
 import MenuItem from "@/app/components/Layout/MenuItem/MenuItem";
+import useMeasure from "react-use-measure";
 
 const drawerWidth = 240;
 
@@ -88,6 +88,7 @@ const Sidebar = ({children}: Props) => {
   const hiddenTab = ['バナー&ポップアップ', 'カテゴリー']
   const isLocked = (userInfo?.plan === plans.at(0) || !userInfo?.plan) && !userInfo?.email?.includes(CF_EMAIL) && !OWNER_EMAILS.includes(userInfo?.email)
   const queryClient = useQueryClient()
+  const [leftRef, {width: leftWidth}] = useMeasure();
 
   const handleChange = async (e) => {
     if (e.target.files.length === 0) return
@@ -144,7 +145,7 @@ const Sidebar = ({children}: Props) => {
   let anDomLogo = isLocked ? '/icons/no-image-free.png' : '/images/logo.png'
 
   return (
-    <div>
+    <div className='mt-16' ref={leftRef}>
       <Drawer
         variant="permanent"
         open={open}

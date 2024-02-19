@@ -1,15 +1,19 @@
+// These styles apply to every route in the application
 import '@/app/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {PropsWithChildren} from "react";
+import React, {ReactNode} from 'react';
+import MainPageLayout from "@/app/components/Layout/MainPageLayout";
 import {Metadata} from "next";
 import {axiosConfigs} from "@/app/configs/axios";
 
-interface Props extends PropsWithChildren {
+type Props = {
+  children: ReactNode,
 }
 
 const title: string = process.env.NEXT_PUBLIC_APP_ENV === 'production' ? 'Xroid Studio β' : process.env.NEXT_PUBLIC_APP_ENV === 'stg' ? '[stg] Xroid Studio β' : '[dev] Xroid Studio β'
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://xroidstudio.geniam.com'),
   openGraph: {
@@ -69,18 +73,18 @@ export const metadata: Metadata = {
   //   custom: 'meta',
   // },
 }
+axiosConfigs();
 
-function BlankRootLayout({children}: Props) {
-  console.log('server')
+function MainLayout({children}: Props) {
   return (
     <html lang="en">
     <body>
-    {children}
+      <MainPageLayout>
+        {children}
+      </MainPageLayout>
     </body>
     </html>
-
   );
 }
 
-export default BlankRootLayout;
-
+export default MainLayout;

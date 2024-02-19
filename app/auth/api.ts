@@ -36,10 +36,10 @@ export function register(data, then) {
 }
 
 
-
 export async function loginEmailAsync(email) {
   return await axios.post(LOGIN_EMAIL, {email});
 }
+
 export async function loginEmailV2Async(email) {
   return await axios.post(LOGIN_EMAIL_V2, {email});
 }

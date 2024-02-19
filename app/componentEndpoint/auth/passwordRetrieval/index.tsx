@@ -3,7 +3,6 @@ import {ReactNode, useState} from 'react';
 import styles from '../../../styles/Login.module.css'
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
-import BlankLayout from "@src/components/Layout/BlankLayout";
 import TextFieldCustom from "@/app/components/custom/TextFieldCustom";
 import axios from "axios";
 import {FORGOT_PASSWORD_URL, MENTOROID_PREFIX} from "@/app/auth/urls";
@@ -22,7 +21,7 @@ export default function PasswordRetrieval() {
         FORGOT_PASSWORD_URL,
         {
           email: email,
-          redirect_url: `${MENTOROID_PREFIX}/auth/login`
+          redirect_url: `${MENTOROID_PREFIX}/login`
         }
       );
       if (res?.status === 200) {
@@ -73,7 +72,7 @@ export default function PasswordRetrieval() {
                 </div>
             }
             <div className={"mt-3.5"}>
-              <span onClick={() => router.push('/auth/login')}
+              <span onClick={() => router.push('/login')}
                     className={"text-[#1976D2] cursor-pointer ml-2"}>ログイン画面に戻る</span>
             </div>
           </div>
@@ -83,5 +82,3 @@ export default function PasswordRetrieval() {
 
   );
 }
-
-PasswordRetrieval.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>

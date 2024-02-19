@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import HeaderScenario from "@/app/components/custom/chapter/contents/HeaderTemplate";
 import CenterScenario from "@/app/components/custom/chapter/contents/CenterScenario";
 import RightScenario from "@/app/components/custom/chapter/contents/RightScenario";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import useChapter from "@/app/hooks/useChapterById";
 import HistoryList from "@/app/components/history/HistoryList";
 import {useAtom, useAtomValue} from "jotai";
@@ -19,9 +19,9 @@ type props = {}
 
 function CreateChapter({}: props) {
   const [innerWidth, setInnerWidth] = useState(1920)
-  const router = useRouter()
-  const chapterId = router.query.createChapter
-  const subFolderId = router.query.subFolder
+  const searchParams = useSearchParams()
+  const chapterId = searchParams.get('createChapter')
+  const subFolderId = searchParams.get('subFolder')
   const {chapter, setChapter, oldChapter} = useChapter(chapterId as string)
   const [loading, setLoading] = useState<boolean>(false)
   const [fixed, setFixed] = useState(false)

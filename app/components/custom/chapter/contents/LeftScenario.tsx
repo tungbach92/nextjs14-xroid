@@ -11,7 +11,7 @@ import AddCreateUroidBLocks from "@/app/components/custom/chapter/AddCreateUroid
 import {Button} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Close, KeyboardDoubleArrowUp} from "@mui/icons-material";
-import Structures from "@/app/componentEndpoint/structures";
+import Structures from "@/app/componentEndpoint/structures/Structures";
 import DialogCustom from "@/app/components/DialogCustom";
 import {openDialogStructAtom} from "@/app/store/atom/openDialogStruct.atom";
 import {structuresInChapterAtom} from "@/app/store/atom/structuresInChapter.atom";

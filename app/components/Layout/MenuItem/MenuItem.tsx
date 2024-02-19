@@ -70,10 +70,11 @@ const MenuItem = ({icon, name, open, path}: ItemMenuProps) => {
       {
         isShowDialog && <PageTransferConfirmationDialog
           open={isShowDialog} setOpen={setIsShowDialog}
-          onClickTextButton={() => router.push(path).then(e => {
+          onClickTextButton={() => {
+            router.push(path)
             setIsShowDialog(false)
             window["isDirtyChapter"] = false
-          })}
+          }}
           onClickContainedButton={() => setIsShowDialog(false)}
           title={'保存せずにページを移動しようとしています。'}
           content={'このままページを移動すると変更内容が保存されません。'}

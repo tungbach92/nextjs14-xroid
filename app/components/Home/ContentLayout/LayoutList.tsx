@@ -7,7 +7,7 @@ import AddIcon from "@/app/common/data/svgData/add-icon.svg"
 import FolderIcon from "@/app/common/data/svgData/folder-open-icon.svg"
 import dayjs from "dayjs";
 import ActionSubFolderPopover from "@/app/components/Home/ActionSubFolder";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {Button} from "@mui/material";
 import AddSubFolderDialog from "@/app/components/Home/AddSubFolder/AddSubFolderDialog";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -44,6 +44,7 @@ function LayoutList({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const setFolders = useSetAtom(foldersAtom)
+  const query = useSearchParams()
   const handleChangePage = async (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
@@ -116,7 +117,7 @@ function LayoutList({
         <Button
           variant='outlined'
           className='flex items-center gap-3 mb-3 text-white bg-[#1976D2] normal-case'
-          onClick={() => router.push(`${!isSubFolder ? '/contents/create' : `/contents/subFolder/${router.query.subFolder}/create/`}`)}
+          onClick={() => router.push(`${!isSubFolder ? '/contents/create' : `/contents/subFolder/${query.get('subFolder')}/create/`}`)}
         >
           コース
           <span className='w-5 h-5 bg-[#1976D2] rounded-full'><AddIcon/></span>

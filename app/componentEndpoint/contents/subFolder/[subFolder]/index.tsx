@@ -2,9 +2,8 @@ import React, {useEffect, useMemo, useState} from "react";
 import ArrowDown from "@/app/common/data/svgData/arrow-down-icon.svg";
 import ArrowUp from "@/app/common/data/svgData/arrow-up-icon.svg";
 import ButtonGroupCustom from "@/app/components/ButtonCustom";
-import SideBarRight from "@src/components/Layout/Sidebar/side-bar-right";
 import {Button} from "@mui/material";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {contentRef, getCountContent} from "@/app/common/firebase/contentRef";
@@ -27,7 +26,8 @@ import LayoutList from "@/app/components/Home/ContentLayout/LayoutList";
 import LayoutGrid from "@/app/components/Home/ContentLayout/LayoutGrid";
 import {foldersAtom} from "@/app/store/atom/folders.atom";
 import {selectedFolderAtom} from "@/app/store/atom/selectedFolder.atom";
-import {toDate} from "../../../../../common/date";
+import {toDate} from "@/common/date";
+import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
 
 type Props = {}
 
@@ -45,9 +45,10 @@ function Index({}: Props) {
   const userId = userInfo?.user_id;
   const [countContent, setCountContent] = useState(0)
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [folders, setFolders] = useAtom(foldersAtom)
   const [selectedFolder, setSelectedFolder] = useAtom(selectedFolderAtom);
-  const subFolderId = router.query.subFolder as string;
+  const subFolderId = searchParams.get('subFolder') as string;
 
   useEffect(() => {
     if (!userInfo.user_id)

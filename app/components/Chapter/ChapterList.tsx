@@ -4,7 +4,7 @@ import {useGetChapterByContentId} from "@/app/hooks/useGetChaptersByContentId";
 import RemoveComponent from "@/app/components/base/RemoveComponent";
 import {deleteDataChapter, updateDataChapter} from "@/app/common/commonApis/chaptersApi";
 import {toast} from "react-toastify";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {toDate} from "../../../common/date";
 import {cloneDeep} from "lodash";
@@ -25,7 +25,8 @@ type Props = {
 function ChapterList({contentId, title, isSubFolder}: Props) {
   const {chapters, setChapters, loadingChapters} = useGetChapterByContentId(contentId)
   const router = useRouter()
-  const folderId = router.query.subFolder as string
+  const searchParams = useSearchParams()
+  const folderId = searchParams.get('subFolder')
   const [item, setItem] = useState<ChapterWithPurChaseSetting | undefined>(undefined)
   const [openUpdateBanner, setOpenUpdateBanner] = useState<boolean>(false)
   const [openChangeCube, setOpenChangeCube] = useState<boolean>(false)
