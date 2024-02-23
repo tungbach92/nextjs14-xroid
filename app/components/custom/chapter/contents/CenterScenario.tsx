@@ -71,7 +71,7 @@ type props = {
 function CenterScenario({chapter, loading, blocks, setBlocks, virtuosoRef, isHistory = false}: props) {
   useStructureData()
   const router = useRouter()
-  const {contentId, chapterId}: any = useSearchParams()
+  const {contentId, createChapter: chapterId}: any = useSearchParams()
   // const [actionCharacter,] = useAtom(actionCharacterAtom)
   const [userInfo] = useAtom(userAtomWithStorage);
   const [ids] = useAtom(structureIdInnChapterAtom)

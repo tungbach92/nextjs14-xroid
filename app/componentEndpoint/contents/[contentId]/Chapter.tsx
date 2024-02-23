@@ -21,7 +21,7 @@ type props = {}
 
 function Chapter({}: props) {
   const [innerWidth, setInnerWidth] = useState(1920)
-  const {chapterId, subFolder: subFolderId}: any = useSearchParams()
+  const {createChapter: chapterId, subFolder: subFolderId}: any = useSearchParams()
   const {chapter, setChapter, oldChapter} = useChapter(chapterId as string)
   const [loading, setLoading] = useState<boolean>(false)
   const [fixed, setFixed] = useState(false)

@@ -88,7 +88,7 @@ function HeaderScenario({
                           setIsFullFieldUroid
                         }: props) {
   const router = useRouter()
-  const {chapterId, contentId}: any = useSearchParams()
+  const {createChapter: chapterId, contentId}: any = useSearchParams()
   const [blocks, setBlocks] = useAtom(blocksAtom)
   // const [ oldBlocks, setOldBlocks] = useAtom(oldBlocksAtom)
   const [contentData, setContentData] = useState<any>({})

@@ -10,11 +10,11 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import {Content} from "@/app/types/content";
 import {ONLY_ME, plans} from "@/app/configs/constants";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {LockContent} from '@/app/components/base/lockContent/LockContent';
 import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
-import {CF_EMAIL, OWNER_EMAILS} from "../../../../../../common/ownerId";
+import {CF_EMAIL, OWNER_EMAILS} from "@/common/ownerId";
 
 
 type Props = {
@@ -35,7 +35,7 @@ function CollapseTitle({
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [placement, setPlacement] = React.useState<PopperPlacementType>();
   const router = useRouter()
-  const chapterId = router.query.createChapter as string
+  const {createChapter: chapterId}: any = useSearchParams()
   const [userInfo] = useAtom(userAtomWithStorage);
   const isLocked = (userInfo?.plan === plans.at(0) || !userInfo?.plan) && !userInfo?.email?.includes(CF_EMAIL) && !OWNER_EMAILS.includes(userInfo?.email)
 
@@ -48,7 +48,7 @@ function CollapseTitle({
 
   const onChangeIsPublicByContent = (e) => {
     setChapter({isPublicByContent: e.target.checked});
-    if(!e.target.checked) {
+    if (!e.target.checked) {
       setOpenSettingPublic(false);
     }
   }
@@ -98,7 +98,8 @@ function CollapseTitle({
       <div className={''}>
         <div className={'grid grid-cols-12 items-center'}>
           <div className={'col-span-9'}>
-            <LockContent isLocked={isLocked}  className={'flex-row-reverse justify-end py-2 gap-3 rounded-none bg-blue-300'}>
+            <LockContent isLocked={isLocked}
+                         className={'flex-row-reverse justify-end py-2 gap-3 rounded-none bg-blue-300'}>
               <div className={"font-normal grid justify-items-end text-sm m-auto text-center min-w-fit pr-[14px]"}>
                 このシナリオを公開
               </div>
