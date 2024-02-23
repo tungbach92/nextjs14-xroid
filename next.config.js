@@ -13,7 +13,8 @@ const nextConfig = {
   swcMinify: true,
   images: {
     unoptimized: true,
-  }
+  },
+  transpilePackages: ['crypto-js'],
 };
 
 module.exports = nextConfig;

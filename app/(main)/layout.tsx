@@ -73,7 +73,6 @@ export const metadata: Metadata = {
   //   custom: 'meta',
   // },
 }
-axiosConfigs();
 
 function MainLayout({children}: Props) {
   return (

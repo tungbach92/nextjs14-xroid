@@ -21,7 +21,7 @@ export default function PasswordRetrieval() {
         FORGOT_PASSWORD_URL,
         {
           email: email,
-          redirect_url: `${MENTOROID_PREFIX}/login`
+          redirect_url: `${MENTOROID_PREFIX}/auth/login`
         }
       );
       if (res?.status === 200) {
@@ -72,7 +72,7 @@ export default function PasswordRetrieval() {
                 </div>
             }
             <div className={"mt-3.5"}>
-              <span onClick={() => router.push('/login')}
+              <span onClick={() => router.push('auth/login')}
                     className={"text-[#1976D2] cursor-pointer ml-2"}>ログイン画面に戻る</span>
             </div>
           </div>

@@ -30,7 +30,6 @@ import {foldersAtom} from "@/app/store/atom/folders.atom";
 import {layoutAtomWithStorage} from "@/app/store/atom/layout.atom";
 import {arrangeAtomWithStorage} from "@/app/store/atom/arrange.atom";
 import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
-import {axiosConfigs} from "@/app/configs/axios";
 
 
 type Props = {};

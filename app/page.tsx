@@ -16,11 +16,7 @@ import {ToastContainer} from "react-toastify";
 import {LoadingPageCustom} from "@/app/components/custom/LoadingPageCustom";
 import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
-import {useTitle} from "@/app/hooks/useTitle";
-import Head from "next/head";
 import {CF_EMAIL, OWNER_EMAILS} from "@/common/ownerId";
-import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
-
 
 
 const unAuthRoute = ["/auth/register", '/auth/login', '/auth/passwordRetrieval']
@@ -33,10 +29,6 @@ function Page() {
   const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production'
   const [userInfo] = useAtom<any>(userAtomWithStorage);
   const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    router.push("/contents")
-  }, [])
 
   useEffect(() => {
     if (isProd && pathName && userInfo.email && !(OWNER_EMAILS.includes(userInfo?.email) || userInfo?.email.includes(CF_EMAIL)) && adminPermissionRoute.includes(pathName)) {
@@ -60,12 +52,15 @@ function Page() {
     }
   }, [])
 
-
+  console.log('page')
   useEffect(() => {
-    return onAuthStateChanged(auth,
+    onAuthStateChanged(auth,
       (user) => {
+        console.log({user})
         if (!user && pathName && !unCheckAuthRoute.includes(pathName)) {
-          router.push('/login')
+          router.push('/auth/login')
+        } else {
+          router.push("/contents")
         }
         // @ts-ignore
         setUser(user)
@@ -112,7 +107,7 @@ function Page() {
   }, [])
 
 
-  // if (!user && !unAuthRoute.includes(pathName)) return <LoadingPageCustom/>
+  if (!user && !unAuthRoute.includes(pathName)) return <LoadingPageCustom/>
   return <LoadingPageCustom/>
 }
 

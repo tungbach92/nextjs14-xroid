@@ -4,7 +4,7 @@ import axios from "axios";
 import {USER_INFO} from "@/app/auth/urls";
 import {removeLoginOrRegisterKeys} from "@/app/auth/removeLoginOrRegisterKeys";
 import store from 'store';
-
+import {unstable_noStore as noStore} from 'next/cache';
 
 const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production'
 const domain = isProd ? '.geniam.com' : null
@@ -22,6 +22,7 @@ const setTokenAndRedirect = async ({
                                    }, router) => {
   try {
     removeLoginOrRegisterKeys()
+    console.log('here')
     const res = await axios.get(USER_INFO)
     store.set(ACCESS_TOKEN_KEY, access_token)
     store.set(USER_INFO_KEY, res.data)

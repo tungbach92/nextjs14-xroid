@@ -1,7 +1,6 @@
 'use client'
 
 import React, {ReactNode} from 'react';
-import useMeasure from "react-use-measure";
 import Header from "@/app/components/Header/Header";
 import SideBarLeft from "@/app/components/Layout/Sidebar/side-bar-left";
 import {QueryClientProvider} from "@tanstack/react-query";
@@ -16,6 +15,7 @@ const queryClient = new QueryClient()
 axiosConfigs();
 
 function MainPageLayout({children}: Props) {
+  console.log('MainPageLayout')
   return (
     <div className='bg-white h-full relative'>
       <Header/>

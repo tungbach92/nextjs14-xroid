@@ -33,6 +33,8 @@ import {getEnterprise} from "@/app/common/commonApis/enterPriseApis";
 import {isEnterpriseAtom} from "@/app/store/atom/isEnterprise.atom";
 import KudenUsingSetting, {Enterprise} from "./KudenUsingSetting";
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {USER_INFO_KEY} from "@/app/lib/constants";
+import store from "store";
 
 const drawerWidth = 240;
 
@@ -85,10 +87,11 @@ function Header({}: Props) {
       moreOwners.includes(userInfo?.user_id) ? getPlanJpText(plans.at(1)) :
         getPlanJpText(userInfo?.plan)
   const [, setIsEnterprise] = useAtom(isEnterpriseAtom)
+
   useEffect(() => {
     const getDataEnterPrise = async () => {
       try {
-        console.log({userInfo})
+        console.log(userInfo?.user_id)
         const data = await getEnterprise(userInfo?.user_id)
         console.log({data})
         setEnterprise(data)
@@ -120,13 +123,12 @@ function Header({}: Props) {
   const handleLogOut = async (e) => {
     try {
       await axios.post(LOGOUT_URL);
-      await auth.signOut().then(() => {
-        setUserInfo({})
-        setSelectedFolder({id: null})
-      })
+      await auth.signOut()
+      setUserInfo({})
+      setSelectedFolder({id: null})
       removeAllTokens();
       removeLoginOrRegisterKeys();
-      router.push("/login")
+      router.push("/auth/login")
     } catch (e) {
       showAxiosError(e);
       console.log(e)
@@ -139,12 +141,15 @@ function Header({}: Props) {
   useEffect(() => {
     pathname && setIsStructBtnShowed(pathname.includes("/structures"))
   }, [pathname])
-
   return (
     <AppBar position="fixed">
       <Toolbar className={"flex justify-between"}>
         <Box className={"flex flex-row justify-center items-center gap-4"}>
-          <label className='flex flex-wrap justify-center items-center gap-2 text-black font-bold text-lg'>
+          <label
+            className='flex flex-wrap justify-center items-center gap-2 text-black font-bold text-lg cursor-pointer'
+            onClick={() => {
+              router.push('/')
+            }}>
             {
               isSaveButtonShowed
                 ? <>

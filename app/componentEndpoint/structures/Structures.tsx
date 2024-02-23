@@ -198,7 +198,7 @@ function Structures(props: Props) {
   }
 
   const checkStructInChapter = () => {
-    return window.location.href.includes(`${window.location.origin}/content`)
+    return false
   }
 
   const handleOpenEnecolorDialog = () => {

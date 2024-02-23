@@ -138,7 +138,7 @@ export default function Register() {
             }
             <div className={"mt-3.5"}>
               すでにアカウントをお持ちの方は
-              <span onClick={() => router.push('/login')}
+              <span onClick={() => router.push('/auth/login')}
                     className={"text-[#1976D2] cursor-pointer"}>こちら</span>
             </div>
           </div>

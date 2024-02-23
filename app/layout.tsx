@@ -71,7 +71,6 @@ export const metadata: Metadata = {
 }
 
 function BlankRootLayout({children}: Props) {
-  console.log('server')
   return (
     <html lang="en">
     <body>
