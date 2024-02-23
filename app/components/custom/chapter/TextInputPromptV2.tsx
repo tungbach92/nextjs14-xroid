@@ -3,9 +3,9 @@ import React from "react";
 import {useSetAtom} from "jotai";
 import {textInputRefAtom} from "@/app/store/atom/textInputRef.atom";
 import {blockIdAtom} from "@/app/store/atom/blockId.atom";
-import {saveButtonPropsAtom} from "@src/components/Layout/Header/SaveButton";
 import {BlockPrompt, BlockWithoutCharPrompt} from "@/app/types/block";
 import {TextFieldProps} from "@mui/material/TextField/TextField";
+import {saveButtonPropsAtom} from "@/app/components/Header/SaveButton";
 
 type Props = TextFieldProps & {
   inputRef: React.MutableRefObject<HTMLInputElement | null>

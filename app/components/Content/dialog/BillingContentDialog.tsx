@@ -7,7 +7,7 @@ import {initialData, initialState} from "@/app/components/Content/data/data";
 import {saveError, saveSuccess} from "@/app/services/content";
 import {updateContent} from "@/app/common/commonApis/contentsApi";
 import isEqual from "react-fast-compare";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {toNumber} from "lodash";
 import ChapterBannerContent from "@/app/components/Content/ChapterBannerContent";
 import {Chapter} from "@/app/types/types";
@@ -50,7 +50,7 @@ function BillingContentDialog({
   const [stateBill, setStateBill] = useState<ContentState>({});
   const [value, setValue] = useState<string>(initialValue)
   const router = useRouter()
-  const {contentId, id}: any = router.query;
+  const {contentId, id}: any = useSearchParams();
 
   const cubeOptionDraft = {
     basic: {

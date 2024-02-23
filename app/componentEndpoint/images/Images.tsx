@@ -1,4 +1,5 @@
 'use client'
+
 import React, {useEffect, useState} from "react";
 import {useAtomValue} from "jotai";
 import useGetImageFolders from "@/app/hooks/useGetImageFolders";
@@ -18,7 +19,7 @@ function Images(props) {
     const result = imageFolders?.filter(folder => folder.parentId === selectedImageFolder.id)
     setSubImageFolders(result)
   }, [imageFolders, selectedImageFolder?.id])
-
+  console.log('images')
   return (
     <MainImage subImageFolders={subImageFolders} isSubFolder={false} />
   );

@@ -10,11 +10,11 @@ import {useImageList} from "@/app/components/imagePage";
 import Modal from "@/app/components/custom/Modal";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import {saveButtonPropsAtom} from "@src/components/Layout/Header/SaveButton";
 import isURL from "validator/lib/isURL";
 import {BlockPopup} from "@/app/types/block";
 import {cloneDeep} from "lodash";
 import useGetImageFolders from "@/app/hooks/useGetImageFolders";
+import {saveButtonPropsAtom} from "@/app/components/Header/SaveButton";
 
 type popupTemplateProps = {
   onDelete: () => void

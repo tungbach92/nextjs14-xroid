@@ -3,19 +3,18 @@ import {useAtom, useAtomValue, useSetAtom} from "jotai";
 import {blocksAtom} from "@/app/store/atom/blocks.atom";
 import {cloneDeep, includes, toNumber, uniqBy} from "lodash";
 import {createDataChapter, updateDataChapter} from "@/app/common/commonApis/chaptersApi";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import "react-datepicker/dist/react-datepicker.css";
 import 'moment/locale/it.js';
 import {useGetChapterByContentId} from "@/app/hooks/useGetChaptersByContentId";
 import {toast} from "react-toastify";
-import {toDate} from "../../../../../common/date";
+import {toDate} from "@/common/date";
 import {customBlocks} from "@/app/common/customBlocks";
 import {getDeeplink} from "@/app/common/deeplink"
 import {genId} from "cf-gen-id";
 import {Chapter, Character, DataStructure, DataStructureItem, ViewOptionForm} from "@/app/types/types";
 import {getContentById, updateContent} from "@/app/common/commonApis/contentsApi";
 import useLastSavedDate from "@/app/hooks/useLastSavedDate";
-import {saveButtonPropsAtom} from "@src/components/Layout/Header/SaveButton";
 import {chapterIndex} from "@/app/common/getMaxChapterIndex";
 import useContent from "@/app/hooks/useContent";
 import PageTransferConfirmationDialog from "@/app/components/DialogCustom/PageTransferConfirmationDialog";
@@ -61,6 +60,7 @@ import useAdminEnecolors from "@/app/hooks/useAdminEnecolor";
 import {useGetAllUserEnecolor} from "@/app/hooks/useGetAllUserEnecolor";
 import SeparateCustom from "@/app/components/custom/SeparateCustom";
 import useBlocks from "@/app/hooks/useBlocks";
+import {saveButtonPropsAtom} from "@/app/components/Header/SaveButton";
 
 type props = {
   subFolderId?: string | string[],
@@ -88,7 +88,7 @@ function HeaderScenario({
                           setIsFullFieldUroid
                         }: props) {
   const router = useRouter()
-  const contentId = router.query.contentId as string
+  const {chapterId, contentId}: any = useSearchParams()
   const [blocks, setBlocks] = useAtom(blocksAtom)
   // const [ oldBlocks, setOldBlocks] = useAtom(oldBlocksAtom)
   const [contentData, setContentData] = useState<any>({})
@@ -96,8 +96,7 @@ function HeaderScenario({
   const [valueInput, setValueInput] = useState<number>(0)
   const {content} = useContent(contentId)
   const {chapters, loadingChapters} = useGetChapterByContentId(contentId as string)
-  const chapterId = router.query.createChapter as string
-  const{oldBlocks} = useBlocks(chapterId)
+  const {oldBlocks} = useBlocks(chapterId)
 
   const [viewOptionForms, setViewOptionForms] = useState<ViewOptionForm[]>([])
   // const [ids] = useAtom(structureIdInnChapterAtom)
@@ -194,7 +193,7 @@ function HeaderScenario({
   const isDirtyChapter = useMemo(() => {
     let _chapter = {...chapter} as Chapter
     if (chapterId === 'createChapter') return checkIsCreate
-    if(content?.viewOptions?.includes('productionMode')){
+    if (content?.viewOptions?.includes('productionMode')) {
       _chapter = {
         ..._chapter,
         viewOptions: _chapter?.viewOptions?.filter(item => item !== 'productionMode')
@@ -435,12 +434,13 @@ function HeaderScenario({
         setCheckIsCreate(false)
       } else {
         await updateDataChapter(updateData)
-        if(type === 'preview'){
-        if (isProd()) {
-          window.open(`https://embed.geniam.com/run/${chapterId}`)
-        } else {
-          window.open(`https://embed-stg.geniam.com/run/${chapterId}`)
-        }}
+        if (type === 'preview') {
+          if (isProd()) {
+            window.open(`https://embed.geniam.com/run/${chapterId}`)
+          } else {
+            window.open(`https://embed-stg.geniam.com/run/${chapterId}`)
+          }
+        }
         toast.success('チャプターを更新しました', {autoClose: 3000})
       }
       setLastSaved({...lastSaved, [chapterId]: Date.now()})
@@ -502,13 +502,13 @@ function HeaderScenario({
   const onChangePage = () => {
     if (isSwitch !== '')
       return switchChapter(isSwitch)
-    else
-      router.push(`${pathName !== '' ? pathName : `/contents/${contentId}`}`).then(e => {
-        setIsShowDialog(false)
-        setIsSwitch('')
-        setPathName('')
-        window["isDirtyChapter"] = false
-      })
+    else {
+      router.push(`${pathName !== '' ? pathName : `/contents/${contentId}`}`)
+      setIsShowDialog(false)
+      setIsSwitch('')
+      setPathName('')
+      window["isDirtyChapter"] = false
+    }
   }
   const onChangeCanComment = () => {
     setChapter({isAbleComment: !chapter.isAbleComment})

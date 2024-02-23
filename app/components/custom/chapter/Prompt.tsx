@@ -26,7 +26,6 @@ import {Character, CharacterBlock} from "@/app/types/types";
 import {CssTextField} from "@/app/components/custom/CssTextField";
 import {BlockPrompt, BlockPromptInput, SaveSetting} from "@/app/types/block";
 import {setIsVoiceCharacter} from "@/app/common/setIsVoiceCharacter";
-import {saveButtonPropsAtom} from "@src/components/Layout/Header/SaveButton";
 import {LIST_PROMT_INPUT, PROMPT, PROMPT_WITHOUT_CHAR} from "@/app/configs/constants";
 import {isBlockNoVoice} from "@/app/common/checkBlockNoVoice";
 import useDefaultVoice from "@/app/hooks/useDefaultVoice";
@@ -35,6 +34,7 @@ import {QaDocTemplate} from "@/app/types/qaDocTemplate";
 import AssociateAiComp from "@/app/components/associateAI/AssociateAiComp";
 import {useAssociateAIs} from "@/app/hooks/useAssociates";
 import {chapterErrorAtom} from "@/app/store/atom/chapterError.atom";
+import {saveButtonPropsAtom} from "@/app/components/Header/SaveButton";
 
 
 type props = {

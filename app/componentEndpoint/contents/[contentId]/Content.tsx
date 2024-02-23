@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from "@/app/components/Content/MainContent";
 import {useRouter, useSearchParams} from "next/navigation";
 
-function Index() {
+function Content() {
   const query = useSearchParams()
   const {contentId}: any = query;
   return (
@@ -10,4 +10,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Content;

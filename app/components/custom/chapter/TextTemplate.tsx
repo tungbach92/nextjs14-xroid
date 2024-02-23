@@ -17,7 +17,6 @@ import {getStructParentId} from '@/app/common/getStructParentId';
 import {createEneColorSetting} from "@/app/common/commonApis/eneColorSettingApi";
 import {toast} from "react-toastify";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
-import {saveButtonPropsAtom} from "@src/components/Layout/Header/SaveButton";
 import AddIcon from "@mui/icons-material/Add";
 import {EnecolorSettingName} from "@/app/components/custom/chapter/EnecolorSettingName";
 import {useGetEnecolorRankTextSettings} from "@/app/hooks/useGetEnecolorRankTextSettings";
@@ -34,6 +33,7 @@ import {NO_VARIABLE_TEXT} from "@/app/configs/constants";
 import {clearChapterErrorAtom} from "@/app/store/atom/chapterError.atom";
 import {isBlockNoVoice} from "@/app/common/checkBlockNoVoice";
 import useDefaultVoice from "@/app/hooks/useDefaultVoice";
+import {saveButtonPropsAtom} from "@/app/components/Header/SaveButton";
 
 type props = {
   onDelete: () => void

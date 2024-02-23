@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useState} from "react";
 import Image from "next/image";
 import Button from "@mui/material/Button";
@@ -44,8 +46,6 @@ import {isEnterpriseAtom} from "@/app/store/atom/isEnterprise.atom";
 import {chapterIndex} from "@/app/common/getMaxChapterIndex";
 import {getPlanJpText} from "@/app/common/getPlanJpText";
 import SeparateCustom from "@/app/components/custom/SeparateCustom";
-
-
 interface MainContentProps {
   id: string
   subFolder?: string
@@ -71,7 +71,7 @@ function MainContent({id, subFolder}: MainContentProps) {
   const isLocked = (userInfo?.plan === plans.at(0) || !userInfo?.plan) && !userInfo?.email?.includes(CF_EMAIL) && !OWNER_EMAILS?.includes(userInfo?.email)
   const plan = getPlanJpText(userInfo?.plan)
   const checkIsFreePlan = plan === 'フリー'
-  const checkIsClassFunc = userInfo?.email.includes(CF_EMAIL)
+  const checkIsClassFunc = userInfo?.email?.includes(CF_EMAIL)
   const [isEnterprise, ] = useAtom(isEnterpriseAtom)
   const isSuperAdmin = userInfo?.user_id === OWNER_ID
   const isProUser = OWNER_EMAILS?.includes(userInfo?.email)

@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateChapter from "@/app/componentEndpoint/contents/[contentId]/[createChapter]";
+import Chapter from "@/app/componentEndpoint/contents/[contentId]/Chapter";
 
 type props = {}
 
 function CreateChapterSub({}: props) {
-  return <CreateChapter/>
+  return <Chapter/>
 }
 
 export default CreateChapterSub;

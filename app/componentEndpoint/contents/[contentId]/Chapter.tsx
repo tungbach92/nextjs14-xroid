@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useEffect, useRef, useState} from 'react';
 import HeaderScenario from "@/app/components/custom/chapter/contents/HeaderTemplate";
 import CenterScenario from "@/app/components/custom/chapter/contents/CenterScenario";
@@ -17,11 +19,9 @@ import LeftScenario from "@/app/components/custom/chapter/contents/LeftScenario"
 
 type props = {}
 
-function CreateChapter({}: props) {
+function Chapter({}: props) {
   const [innerWidth, setInnerWidth] = useState(1920)
-  const searchParams = useSearchParams()
-  const chapterId = searchParams.get('createChapter')
-  const subFolderId = searchParams.get('subFolder')
+  const {chapterId, subFolder: subFolderId}: any = useSearchParams()
   const {chapter, setChapter, oldChapter} = useChapter(chapterId as string)
   const [loading, setLoading] = useState<boolean>(false)
   const [fixed, setFixed] = useState(false)
@@ -121,8 +121,9 @@ function CreateChapter({}: props) {
               <CenterScenario chapter={chapter} loading={loadingBlocks} blocks={blocks} setBlocks={setBlocks}
                               virtuosoRef={virtuosoRef}/>
             </div>
-            <div className={`${!isCreateRoid && isShowTabPanel ? 'col-span-3' : !isCreateRoid && !isShowTabPanel ? 'col-span-1' :
-              isCreateRoid && isShowTabPanel ? 'col-span-3' : 'col-span-1'} h-full w-full`}>
+            <div
+              className={`${!isCreateRoid && isShowTabPanel ? 'col-span-3' : !isCreateRoid && !isShowTabPanel ? 'col-span-1' :
+                isCreateRoid && isShowTabPanel ? 'col-span-3' : 'col-span-1'} h-full w-full`}>
               <RightScenario fixed={fixed} virtuosoRef={virtuosoRef}/>
             </div>
           </div>
@@ -131,4 +132,4 @@ function CreateChapter({}: props) {
   );
 }
 
-export default CreateChapter;
+export default Chapter;

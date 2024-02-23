@@ -19,7 +19,7 @@ import {Chapter} from "@/app/types/types";
 import {selectedBlocksAtom} from "@/app/store/atom/selectedBlocks.atom";
 import Modal from "@/app/components/custom/Modal";
 import RightScenario from "@/app/components/custom/chapter/contents/RightScenario";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {mapDataToAddIndex} from "@/app/common/mapDataToAddIndex";
 import {selectedBlocksAddAtIndexAtom} from "@/app/store/atom/selectedBlocksAddAtIndex.atom";
 import {selectedCharacterInContentAtom} from "@/app/store/atom/selectedCharacterInContent.atom";
@@ -71,8 +71,7 @@ type props = {
 function CenterScenario({chapter, loading, blocks, setBlocks, virtuosoRef, isHistory = false}: props) {
   useStructureData()
   const router = useRouter()
-  const chapterId = router.query.createChapter as string
-  const contentId = router.query.contentId as string
+  const {contentId, chapterId}: any = useSearchParams()
   // const [actionCharacter,] = useAtom(actionCharacterAtom)
   const [userInfo] = useAtom(userAtomWithStorage);
   const [ids] = useAtom(structureIdInnChapterAtom)
@@ -135,8 +134,8 @@ function CenterScenario({chapter, loading, blocks, setBlocks, virtuosoRef, isHis
     let arr = cloneDeep(blocks);
     let block = arr[index]
     if (block?.type === UROID_DEFAULTIMAGE) {
-      const uroidThumb = arr.find((item=> item.type === UROID_THUMB)) as BlockURoidThumbnail
-      if(uroidThumb) uroidThumb.data.thumbUrl = ''
+      const uroidThumb = arr.find((item => item.type === UROID_THUMB)) as BlockURoidThumbnail
+      if (uroidThumb) uroidThumb.data.thumbUrl = ''
     }
     arr.splice(index, 1);
     const _arr = arr?.filter((item, index) => {

@@ -60,7 +60,7 @@ function ListButtonAddNewTypeOfChapter({className, maxIndex, contentId, isLink}:
   const [userInfo,] = useAtom(userAtomWithStorage)
   const plan = getPlanJpText(userInfo?.plan)
   const checkIsFreePlan = plan === 'フリー'
-  const checkIsClassFunc = userInfo?.email.includes(CF_EMAIL)
+  const checkIsClassFunc = userInfo?.email?.includes(CF_EMAIL)
   const [isEnterprise, setIsEnterprise] = useAtom(isEnterpriseAtom)
   const isSuperAdmin = userInfo?.user_id === OWNER_ID
   const isProUser =OWNER_EMAILS?.includes(userInfo?.email)

@@ -4,7 +4,7 @@ import Image from "next/image";
 import {Avatar} from "@mui/material";
 import {Character} from "@/app/types/types";
 import {Content} from "@/app/types/content";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 interface MentoroidListContentProps {
   content: Content
@@ -14,7 +14,7 @@ interface MentoroidListContentProps {
 
 export default function MentoroidListContent({content, characters, contentLoading}: MentoroidListContentProps) {
   const router = useRouter()
-  const {contentId}: any = router.query;
+  const {contentId}: any = useSearchParams();
   const [open, setOpen] = useState<boolean>(false)
   const [selectedChars, setSelectedChars] = useState<Character[]>([])
 
