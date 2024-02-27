@@ -14,6 +14,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ['crypto-js'],
 };
 
 module.exports = nextConfig;

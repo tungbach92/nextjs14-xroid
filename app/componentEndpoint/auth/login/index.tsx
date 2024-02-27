@@ -13,13 +13,15 @@ import Image from 'next/image'
 import {auth} from "@/app/configs/firebase";
 import {FacebookAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup} from "firebase/auth";
 import LoadingButton from "@mui/lab/LoadingButton";
-import {useAtom} from "jotai";
+import {useAtom, useSetAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {CssTextField} from "@/app/components/custom/CssTextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import {deepPurple} from "@mui/material/colors";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
+import {axiosConfigs} from "@/app/configs/axios";
 
 const ggProvider = new GoogleAuthProvider();
 const fbProvider = new FacebookAuthProvider();
@@ -47,6 +49,9 @@ const dataSocial = [
     backgroundColor: '#000'
   },
 ]
+
+axiosConfigs()
+
 export default function Login() {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
@@ -58,6 +63,7 @@ export default function Login() {
   const [user, setUser] = useState(null)
   const [loadingEmail, setLoadingEmail] = useState(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const setAccessToken = useSetAtom(accessTokenAtom)
 
 
   const handleLogin = async (e) => {
@@ -68,7 +74,6 @@ export default function Login() {
       const user: any = await loginAsync(email, password, {});
       setTokenAndRedirect({
         setUserInfo,
-        access_token: user.stsTokenManager.accessToken,
         refresh_token: user.stsTokenManager.refreshToken
       }, router).then()
 
@@ -106,7 +111,6 @@ export default function Login() {
       })
       await setTokenAndRedirect({
         setUserInfo,
-        access_token: loginData?.stsTokenManager?.accessToken,
         refresh_token: loginData?.stsTokenManager?.refreshToken
       }, router)
     } catch (err) {

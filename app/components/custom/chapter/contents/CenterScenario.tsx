@@ -1,3 +1,4 @@
+'use client'
 import React, {MutableRefObject, SetStateAction, useCallback, useEffect, useMemo, useState} from "react";
 import {useAtom, useAtomValue, useSetAtom} from "jotai";
 import {

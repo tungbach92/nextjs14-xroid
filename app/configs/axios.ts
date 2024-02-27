@@ -4,22 +4,15 @@ import {makeUseAxios} from 'axios-hooks'
 import {BASE_API_URL} from "@/app/auth/urls";
 import store from "store";
 import {ACCESS_TOKEN_KEY} from "@/app/lib/constants";
-import {onAuthStateChanged} from "@firebase/auth";
+import {onAuthStateChanged, onIdTokenChanged} from "@firebase/auth";
 
 axios.defaults.baseURL = BASE_API_URL
 
-export const axiosConfigs = () => {
+export const axiosConfigs = (accessToken?: string) => {
   //REQUEST
   axios.interceptors.request.use(
     async (config: any) => {
-      let token;
-      onAuthStateChanged(auth, async user => {
-        token = await user?.getIdToken();
-        token && store.set(ACCESS_TOKEN_KEY, token)
-      })
-      if (!token) {
-        token = store.get(ACCESS_TOKEN_KEY)
-      }
+      const token = await auth.currentUser?.getIdToken();
       config.headers['Authorization'] = `Bearer ${token}`;
       return config;
     },

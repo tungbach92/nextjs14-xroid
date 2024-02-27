@@ -35,6 +35,8 @@ import KudenUsingSetting, {Enterprise} from "./KudenUsingSetting";
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {USER_INFO_KEY} from "@/app/lib/constants";
 import store from "store";
+import {onIdTokenChanged} from "@firebase/auth";
+import {axiosConfigs} from "@/app/configs/axios";
 
 const drawerWidth = 240;
 
@@ -87,7 +89,6 @@ function Header({}: Props) {
       moreOwners.includes(userInfo?.user_id) ? getPlanJpText(plans.at(1)) :
         getPlanJpText(userInfo?.plan)
   const [, setIsEnterprise] = useAtom(isEnterpriseAtom)
-
   useEffect(() => {
     const getDataEnterPrise = async () => {
       try {

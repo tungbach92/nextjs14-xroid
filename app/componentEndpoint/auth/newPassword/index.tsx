@@ -4,7 +4,7 @@ import styles from '../../../styles/Login.module.css'
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
 import TextOutlineCustom from "@/app/components/custom/TextOutlineCustom";
-import BlankLayout from "@src/components/Layout/BlankRootLayout";
+import BlankLayout from "@src/components/Layout/LoginLayout";
 
 export default function PasswordChangeNew() {
   const router = useRouter()

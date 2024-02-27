@@ -9,7 +9,7 @@ import React, {useEffect, useState} from "react";
 import type {Metadata, NextPage} from 'next'
 import type {AppProps} from 'next/app'
 import {axiosConfigs} from "@/app/configs/axios";
-import {onAuthStateChanged} from "@firebase/auth";
+import {onAuthStateChanged, onIdTokenChanged} from "@firebase/auth";
 import {auth} from "@/app/configs/firebase";
 import {usePathname, useRouter} from "next/navigation";
 import {ToastContainer} from "react-toastify";
@@ -17,6 +17,11 @@ import {LoadingPageCustom} from "@/app/components/custom/LoadingPageCustom";
 import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {CF_EMAIL, OWNER_EMAILS} from "@/common/ownerId";
+import firebase from "firebase/compat";
+import {useSetAtom} from "jotai";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
+import store from "store";
+import {ACCESS_TOKEN_KEY} from "@/app/configs/constants";
 
 
 const unAuthRoute = ["/auth/register", '/auth/login', '/auth/passwordRetrieval']
@@ -28,7 +33,7 @@ function Page() {
   const pathName = usePathname()
   const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production'
   const [userInfo] = useAtom<any>(userAtomWithStorage);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<firebase.User>(null)
 
   useEffect(() => {
     if (isProd && pathName && userInfo.email && !(OWNER_EMAILS.includes(userInfo?.email) || userInfo?.email.includes(CF_EMAIL)) && adminPermissionRoute.includes(pathName)) {
@@ -55,8 +60,7 @@ function Page() {
   console.log('page')
   useEffect(() => {
     onAuthStateChanged(auth,
-      (user) => {
-        console.log({user})
+      async (user) => {
         if (!user && pathName && !unCheckAuthRoute.includes(pathName)) {
           router.push('/auth/login')
         } else {

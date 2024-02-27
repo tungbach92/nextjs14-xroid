@@ -5,9 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import {PropsWithChildren} from "react";
 import {Metadata} from "next";
 import {axiosConfigs} from "@/app/configs/axios";
-
-interface Props extends PropsWithChildren {
-}
+import {onIdTokenChanged} from "@firebase/auth";
+import {auth} from "@/app/configs/firebase";
+import store from "store";
+import {ACCESS_TOKEN_KEY} from "@/app/configs/constants";
+import {headers} from "next/headers";
 
 const title: string = process.env.NEXT_PUBLIC_APP_ENV === 'production' ? 'Xroid Studio β' : process.env.NEXT_PUBLIC_APP_ENV === 'stg' ? '[stg] Xroid Studio β' : '[dev] Xroid Studio β'
 export const metadata: Metadata = {
@@ -69,8 +71,10 @@ export const metadata: Metadata = {
   //   custom: 'meta',
   // },
 }
-
-function BlankRootLayout({children}: Props) {
+interface Props extends PropsWithChildren {
+}
+function RootLayout({children}: Props) {
+  console.log('root')
   return (
     <html lang="en">
     <body>
@@ -81,5 +85,5 @@ function BlankRootLayout({children}: Props) {
   );
 }
 
-export default BlankRootLayout;
+export default RootLayout;
 

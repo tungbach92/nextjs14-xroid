@@ -17,14 +17,12 @@ function setCookie(name, value, options = {}) {
 
 const setTokenAndRedirect = async ({
                                      setUserInfo,
-                                     access_token,
                                      refresh_token,
                                    }, router) => {
   try {
     removeLoginOrRegisterKeys()
-    console.log('here')
     const res = await axios.get(USER_INFO)
-    store.set(ACCESS_TOKEN_KEY, access_token)
+    // store.set(ACCESS_TOKEN_KEY, access_token)
     store.set(USER_INFO_KEY, res.data)
     setCookie(COOKIE_GENIAM_REFRESH_TOKEN_KEY, refresh_token)
     setUserInfo(res.data)

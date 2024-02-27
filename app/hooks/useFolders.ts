@@ -2,9 +2,11 @@ import {useEffect} from "react";
 import {foldersAtom} from "@/app/store/atom/folders.atom";
 import {getListFolder} from "@/app/common/folders";
 import {selectedFolderAtom} from "@/app/store/atom/selectedFolder.atom";
-import {useAtom, useSetAtom} from "jotai";
+import {useAtom, useAtomValue, useSetAtom} from "jotai";
 import {folderDocRef} from "@/app/common/firebase/dbRefs";
 import {useDocumentData} from "react-firebase-hooks/firestore";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
+import {axiosConfigs} from "@/app/configs/axios";
 
 export const useFolder = (folderId?: string) => {
   const userRef = folderDocRef(folderId)
@@ -12,11 +14,13 @@ export const useFolder = (folderId?: string) => {
 
   return {folder: data, loading, error}
 }
-
 export default function useFolders() {
   const [selectedFolder, setSelectedFolder] = useAtom(selectedFolderAtom);
   const setFolders = useSetAtom(foldersAtom)
+  const accessToken = useAtomValue(accessTokenAtom)
+
   const getFolders = async () => {
+    console.log('useFolders')
     try {
       const folderList = await getListFolder('content')
       setFolders(folderList)
@@ -29,5 +33,5 @@ export default function useFolders() {
   }
   useEffect(() => {
     getFolders().then()
-  }, []);
+  }, [accessToken]);
 }
