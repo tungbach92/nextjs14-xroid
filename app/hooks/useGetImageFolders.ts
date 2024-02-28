@@ -3,10 +3,14 @@ import {imageFoldersAtom} from "@/app/store/atom/folders.atom";
 import {getListFolder} from "@/app/common/folders";
 import {selectedImageFolderAtom} from "@/app/store/atom/selectedFolder.atom";
 import {useAtom, useSetAtom} from "jotai";
+import {useAtomValue} from "jotai/index";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
 
 export default function useGetImageFolders() {
   const [selectedImageFolder, setSelectedImageFolder] = useAtom(selectedImageFolderAtom);
   const setImageFolders = useSetAtom(imageFoldersAtom)
+  const accessToken = useAtomValue(accessTokenAtom)
+
   const getImageFolders = async () => {
     try {
       const imageFolderList = await getListFolder('image')
@@ -20,5 +24,5 @@ export default function useGetImageFolders() {
   }
   useEffect(() => {
     getImageFolders().then()
-  }, []);
+  }, [accessToken]);
 }
