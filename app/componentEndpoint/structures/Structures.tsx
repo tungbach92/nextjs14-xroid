@@ -206,12 +206,12 @@ function Structures(props: Props) {
     setSelectedEnecolor(null)
     setEnecolors(InitEnecolor)
   }
-
+  console.log(listDataStructure)
   return (
     <div className='flex w-full'>
       <div className={`relative space-y-8 w-full ${!checkStructInChapter() && 'tablet:mr-[70px]'}`}>
         <div className='flex flex-wrap gap-6 mx-8 mt-8'>
-          {!inChapter && <>
+          {!inChapter ? <>
             <Button
               variant='contained'
               onClick={handleAddStructure}
@@ -221,36 +221,53 @@ function Structures(props: Props) {
             {/*        onClick={handleOpenEnecolorDialog}*/}
             {/*        endIcon={<AddIcon/>}*/}
             {/*        className={'h-[40px]'}>エネカラー解析</Button>*/}
-          </>
+          </> : null
           }
-
         </div>
-        {(listDataStructure !== null && maxItems) && <div className={`w-fit mx-8`}>
+        {(listDataStructure !== null && maxItems) ? <div className={`w-fit mx-8`}>
           {
             listDataStructure?.length > 0 ?
               !inChapter ?
-                <ListManager
-                  items={listDataStructure}
-                  direction="horizontal"
-                  maxItems={maxItems}
-                  render={dataStructure => {
-                    if (dataStructure?.isDeleted) return null
-                    return <ListData
-                      onCopy={onCopy}
-                      onDelete={onDelete}
-                      dataStructure={dataStructure}
-                      idValidate={idValidate}
-                      structureInChapter={listDataStructure}
-                      setListDataStructure={setListDataStructure}
-                      inputRef={ref => inputRefs.current[dataStructure.index] = ref}
-                      // onBlur={handleBlur}
-                      setIdValidate={setIdValidate}
-                      {...props}
-                    />
-                  }
-                  }
-                  onDragEnd={onDragEnd}
-                /> : <div className="flex flex-wrap">
+                <div className="flex flex-wrap">
+                  {listDataStructure?.map(dataStructure => <ListData
+                    key={dataStructure.id}
+                    onCopy={onCopy}
+                    onDelete={onDelete}
+                    dataStructure={dataStructure}
+                    idValidate={idValidate}
+                    structureInChapter={listStructureSnapshot}
+                    setListDataStructure={setListStructureSnapshot}
+                    inputRef={ref => inputRefs.current[dataStructure.index] = ref}
+                    // onBlur={handleBlur}
+                    setIdValidate={setIdValidate}
+                    {...props}
+                  />)}
+                </div>
+                // TODO: react dnd grid conflicts with nextjs 14
+                // <ListManager
+                //   items={listDataStructure}
+                //   direction="horizontal"
+                //   maxItems={maxItems}
+                //   render={dataStructure => {
+                //     if (dataStructure?.isDeleted) return null
+                //     return <ListData
+                //       onCopy={onCopy}
+                //       onDelete={onDelete}
+                //       dataStructure={dataStructure}
+                //       idValidate={idValidate}
+                //       structureInChapter={listDataStructure}
+                //       setListDataStructure={setListDataStructure}
+                //       inputRef={ref => inputRefs.current[dataStructure.index] = ref}
+                //       // onBlur={handleBlur}
+                //       setIdValidate={setIdValidate}
+                //       {...props}
+                //     />
+                //   }
+                //   }
+                //   onDragEnd={onDragEnd}
+                // />
+                :
+                <div className="flex flex-wrap">
                   {listDataStructureByFolderIdSnapShot?.map(dataStructure => <ListData
                     key={dataStructure.id}
                     onCopy={onCopy}
@@ -271,9 +288,9 @@ function Structures(props: Props) {
                   データ構造がございません。
                 </div>
           }
-        </div>
+        </div> : null
         }
-        {(isLoading || listDataStructure === null) && <LinearProgress/>}
+        {(isLoading || listDataStructure === null) ? <LinearProgress/> : null}
       </div>
       <div className={`hidden tablet:flex ${!checkStructInChapter() && 'fixed right-0 top-0 pt-[64px] h-full'}`}>
         <SideBarRight folders={structFolders} setFolders={setStructFolders}

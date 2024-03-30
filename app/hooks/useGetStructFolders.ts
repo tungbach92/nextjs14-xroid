@@ -2,11 +2,14 @@ import {useEffect} from "react";
 import {structFoldersAtom} from "@/app/store/atom/folders.atom";
 import {getListFolder} from "@/app/common/folders";
 import {selectedStructureFolderAtom} from "@/app/store/atom/selectedFolder.atom";
-import {useAtom, useSetAtom} from "jotai";
+import {useAtom, useAtomValue, useSetAtom} from "jotai";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
 
 export default function useGetStructFolders() {
   const [selectedStructFolder, setSelectedStructFolder] = useAtom(selectedStructureFolderAtom);
   const setStructFolders = useSetAtom(structFoldersAtom)
+  const accessToken = useAtomValue(accessTokenAtom)
+
   const getStructFolders = async () => {
     try {
       const structFolderList = await getListFolder('struct')
@@ -19,5 +22,5 @@ export default function useGetStructFolders() {
   }
   useEffect(() => {
     getStructFolders().then()
-  }, []);
+  }, [accessToken]);
 }

@@ -37,6 +37,7 @@ import {USER_INFO_KEY} from "@/app/lib/constants";
 import store from "store";
 import {onIdTokenChanged} from "@firebase/auth";
 import {axiosConfigs} from "@/app/configs/axios";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
 
 const drawerWidth = 240;
 
@@ -89,6 +90,8 @@ function Header({}: Props) {
       moreOwners.includes(userInfo?.user_id) ? getPlanJpText(plans.at(1)) :
         getPlanJpText(userInfo?.plan)
   const [, setIsEnterprise] = useAtom(isEnterpriseAtom)
+  const accessToken = useAtomValue(accessTokenAtom)
+
   useEffect(() => {
     const getDataEnterPrise = async () => {
       try {
@@ -102,7 +105,7 @@ function Header({}: Props) {
       }
     }
     getDataEnterPrise()
-  }, [userInfo?.user_id])
+  }, [userInfo?.user_id, accessToken])
 
   useEffect(() => {
     if (query?.createChapter !== oldChapterId) {
