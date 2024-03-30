@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import OpenAiGPTDialog from "@/app/components/associateAI/OpenAIGPTDialog";
-import {useAtom} from "jotai/index";
+import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {useAssociateAIs} from "@/app/hooks/useAssociates";
 import QaDocList from "@/app/components/associateAI/Qa_DocList";

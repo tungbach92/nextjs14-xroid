@@ -6,7 +6,7 @@ import {chapterErrorAtom} from "@/app/store/atom/chapterError.atom";
 import {Chapter} from "@/app/types/types";
 import AssociateAiComp from "@/app/components/associateAI/AssociateAiComp";
 import {QaDocTemplate} from "@/app/types/qaDocTemplate";
-import {useAtom} from "jotai/index";
+import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {useAssociateAIs} from "@/app/hooks/useAssociates";
 import {openQaDocsModalAtom} from "@/app/store/atom/openQaDocsModal.atom";

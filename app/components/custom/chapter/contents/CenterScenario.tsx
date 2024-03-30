@@ -104,7 +104,7 @@ function CenterScenario({chapter, loading, blocks, setBlocks, virtuosoRef, isHis
   const selectedCharsInContent = useAtomValue(selectedCharacterInContentAtom)
   // const {blocks, setBlocks} = useBlocks(chapterId)
   const setOldBlocks = useSetAtom(oldBlocksAtom)
-  const [audio, setAudio] = useState(new Audio())
+  const [audio, setAudio] = useState()
   const [disableSound,] = useAtom(disableSoundAtom)
   const length = blocks?.length || 0
   const [activePlayer, setActivePlayer] = useState<any>(null);

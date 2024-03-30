@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Image} from "@/app/types/types";
-import {useAtom} from "jotai/index";
+import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import {useCollection} from "react-firebase-hooks/firestore";
 import {videosRef} from "@/app/common/firebase/dbRefs";

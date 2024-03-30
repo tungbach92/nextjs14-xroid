@@ -22,7 +22,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import LoadingButton from "@mui/lab/LoadingButton";
 import AddIcon from "@mui/icons-material/Add";
 import {handleUploadFile} from "@/app/common/uploadImage/handleUploadFile";
-import {useAtom} from "jotai/index";
+import {useAtom} from "jotai";
 import {userAtomWithStorage} from "@/app/store/atom/user.atom";
 import Modal from "@/app/components/custom/Modal";
 import ReactPlayer from "react-player";

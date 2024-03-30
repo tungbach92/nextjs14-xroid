@@ -23,7 +23,7 @@ import {
   UROID_DES
 } from "@/app/configs/constants";
 import {DataStructure, DataStructureItem} from "@/app/types/types";
-import {useAtom} from "jotai/index";
+import {useAtom} from "jotai";
 import {typeOfNewEnecolorBlockAtom} from "@/app/store/atom/typeOfNewEnecolorBlock.atom";
 
 type Props = {
