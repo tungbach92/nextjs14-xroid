@@ -74,7 +74,6 @@ export const metadata: Metadata = {
 interface Props extends PropsWithChildren {
 }
 function RootLayout({children}: Props) {
-  console.log('root')
   return (
     <html lang="en">
     <body>

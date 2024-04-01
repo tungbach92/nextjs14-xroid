@@ -57,7 +57,6 @@ function Page() {
     }
   }, [])
 
-  console.log('page')
   useEffect(() => {
     onAuthStateChanged(auth,
       async (user) => {

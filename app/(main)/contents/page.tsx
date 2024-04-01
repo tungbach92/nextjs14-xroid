@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   }
 }
 export default function ContentsPage() {
-  console.log('ContentsPage')
   return (
     <HomePage/>
   );

@@ -20,7 +20,6 @@ export default function useFolders() {
   const accessToken = useAtomValue(accessTokenAtom)
 
   const getFolders = async () => {
-    console.log('useFolders')
     try {
       const folderList = await getListFolder('content')
       setFolders(folderList)

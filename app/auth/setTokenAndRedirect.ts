@@ -1,4 +1,9 @@
-import {ACCESS_TOKEN_KEY, COOKIE_GENIAM_REFRESH_TOKEN_KEY, USER_INFO_KEY} from "@/app/configs/constants";
+import {
+  ACCESS_TOKEN_KEY,
+  COOKIE_GENIAM_ACCESS_TOKEN_KEY,
+  COOKIE_GENIAM_REFRESH_TOKEN_KEY,
+  USER_INFO_KEY
+} from "@/app/configs/constants";
 import Cookies from 'js-cookie'
 import axios from "axios";
 import {USER_INFO} from "@/app/auth/urls";
@@ -17,6 +22,7 @@ function setCookie(name, value, options = {}) {
 
 const setTokenAndRedirect = async ({
                                      setUserInfo,
+                                     access_token,
                                      refresh_token,
                                    }, router) => {
   try {
@@ -24,6 +30,7 @@ const setTokenAndRedirect = async ({
     const res = await axios.get(USER_INFO)
     // store.set(ACCESS_TOKEN_KEY, access_token)
     store.set(USER_INFO_KEY, res.data)
+    setCookie(COOKIE_GENIAM_ACCESS_TOKEN_KEY, access_token)
     setCookie(COOKIE_GENIAM_REFRESH_TOKEN_KEY, refresh_token)
     setUserInfo(res.data)
     router.push('/contents')

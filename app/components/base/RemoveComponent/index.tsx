@@ -30,7 +30,7 @@ function RemoveComponent({title, contentId, subFolder, subFolderId, chapters}: P
   const [addBanner, setAddBanner] = useState(false)
   const [userInfo] = useAtom<any>(userAtomWithStorage)
   const isLocked = (userInfo?.plan === plans.at(0) || !userInfo?.plan) && !userInfo?.email?.includes(CF_EMAIL) && !OWNER_EMAILS.includes(userInfo?.email)
-  const checkIsClassFUnc = userInfo?.email.includes(CF_EMAIL)
+  const checkIsClassFUnc = userInfo?.email?.includes(CF_EMAIL)
   const plan = getPlanJpText(userInfo?.plan)
   const checkIsFreePlan = plan === 'フリー'
   const [isEnterprise, setIsEnterprise] = useAtom(isEnterpriseAtom)

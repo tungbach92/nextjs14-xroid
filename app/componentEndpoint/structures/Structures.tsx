@@ -28,17 +28,20 @@ import useEnecolors from "@/app/hooks/useEnecolors";
 import useAdminEnecolors from "@/app/hooks/useAdminEnecolor";
 import {useGetAllUserEnecolor} from "@/app/hooks/useGetAllUserEnecolor";
 import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
+import {Folder} from "@/app/types/folders";
+import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
 
 interface Props {
   draftSelectedStructures?: DataStructure[];
   setDraftSelectedStructures?: React.Dispatch<SetStateAction<DataStructure[]>>
   structureInChapter?: DataStructure[]
   inChapter?: boolean
+  structFolders?: Folder[]
 }
 
 function Structures(props: Props) {
-  const {inChapter} = props;
-  useGetStructFolders()
+  const {inChapter, structFolders} = props;
+  // useGetStructFolders()
   const inputRefs = useRef<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [listDataStructure, setListDataStructure] = useAtom(listDataStructureNoSnapAtom)
@@ -49,19 +52,26 @@ function Structures(props: Props) {
   const [idValidate, setIdValidate] = useState<string[]>([])
   const [confirmDeleteAll, setConfirmDeleteAll] = useState<boolean>(false)
   const [selectedData, setSelectedData] = useState<DataStructure>({})
-  const [structFolders, setStructFolders] = useAtom(structFoldersAtom)
+  const [, setStructFolders] = useAtom(structFoldersAtom)
   const size = useWindowSize()
   const [maxItems, setMaxItems] = useState<number>(0)
   const [openEnecolorDialog, setOpenEnecolorDialog] = useState<boolean>(false)
   const [selectedEnecolor, setSelectedEnecolor] = useState<Enecolor>(null)
   const [enecolors, setEnecolors] = useState<Enecolor>(InitEnecolor)
+  const [accessToken] = useAtom(accessTokenAtom)
+
   useEnecolors()
   const {adminEnecolors} = useAdminEnecolors()
   useGetAllUserEnecolor(adminEnecolors)
 
+  useEffect(()=>{
+    if (structFolders?.length && !selectedStructFolder?.id)
+       setSelectedStructFolder(structFolders[0])
+  },[structFolders, accessToken])
+
   useEffect(() => {
     getListDataStructure().then()
-  }, [selectedStructFolder?.id])
+  }, [selectedStructFolder?.id, accessToken])
 
   useEffect(() => {
     if (size?.width >= 1800)

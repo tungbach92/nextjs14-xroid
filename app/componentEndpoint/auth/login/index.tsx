@@ -74,7 +74,8 @@ export default function Login() {
       const user: any = await loginAsync(email, password, {});
       setTokenAndRedirect({
         setUserInfo,
-        refresh_token: user.stsTokenManager.refreshToken
+        refresh_token: user.stsTokenManager.refreshToken,
+        access_token: user.stsTokenManager.accessToken,
       }, router).then()
 
     } catch (err) {
@@ -111,7 +112,8 @@ export default function Login() {
       })
       await setTokenAndRedirect({
         setUserInfo,
-        refresh_token: loginData?.stsTokenManager?.refreshToken
+        refresh_token: loginData?.stsTokenManager?.refreshToken,
+        access_token: user.stsTokenManager.accessToken,
       }, router)
     } catch (err) {
       console.log('Error while signing', err.message)
