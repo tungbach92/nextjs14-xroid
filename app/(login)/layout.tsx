@@ -40,16 +40,11 @@ function LoginLayout({children}: Props) {
         setCookie(COOKIE_GENIAM_ACCESS_TOKEN_KEY, user.accessToken)
         router.refresh();
       })
-  },[])
+  }, [])
   return (
-    <html lang="en">
-    <body>
     <div className='w-full h-full bg-gray-200'>
       {children}
     </div>
-    </body>
-    </html>
-
   );
 }
 

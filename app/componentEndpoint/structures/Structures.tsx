@@ -76,7 +76,7 @@ function Structures(props: Props) {
   //   getListDataStructure().then()
   // }, [selectedStructFolder?.id, accessToken])
   useEffect(() => {
-    if(!selectedStructFolder?.id) return
+    if (!selectedStructFolder?.id) return
     const list = listStructuresAllFoldersServer.filter(x => x.folderId === selectedStructFolder?.id)
     setListDataStructure(list?.[0]?.listDataStructures)
     setListDataStructureOld(list?.[0]?.listDataStructures)
@@ -231,20 +231,14 @@ function Structures(props: Props) {
   return (
     <div className='flex w-full'>
       <div className={`relative space-y-8 w-full ${!checkStructInChapter() && 'tablet:mr-[70px]'}`}>
-        <div className='flex flex-wrap gap-6 mx-8 mt-8'>
-          {!inChapter ? <>
-            <Button
-              variant='contained'
-              onClick={handleAddStructure}
-              endIcon={<AddIcon/>}
-            >ストレージ追加</Button>
-            {/*<Button variant="contained"*/}
-            {/*        onClick={handleOpenEnecolorDialog}*/}
-            {/*        endIcon={<AddIcon/>}*/}
-            {/*        className={'h-[40px]'}>エネカラー解析</Button>*/}
-          </> : null
-          }
-        </div>
+        {!inChapter &&
+          <Button
+            className='mx-8 mt-8'
+            variant='contained'
+            onClick={handleAddStructure}
+            endIcon={<AddIcon/>}
+          >ストレージ追加</Button>
+        }
         {(listDataStructure !== null && maxItems) ? <div className={`w-fit mx-8`}>
           {
             listDataStructure?.length > 0 ?

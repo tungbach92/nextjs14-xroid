@@ -19,13 +19,9 @@ type Props = {
 
 function MainLayout({children}: Props) {
   return (
-    <html lang="en">
-    <body>
       <MainPageLayout>
         {children}
       </MainPageLayout>
-    </body>
-    </html>
   );
 }
 
