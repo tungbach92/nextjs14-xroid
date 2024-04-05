@@ -30,6 +30,7 @@ import {useGetAllUserEnecolor} from "@/app/hooks/useGetAllUserEnecolor";
 import SideBarRight from "@/app/components/Layout/Sidebar/side-bar-right";
 import {Folder} from "@/app/types/folders";
 import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
+import {useRouter} from "next/navigation";
 
 interface Props {
   draftSelectedStructures?: DataStructure[];
@@ -37,10 +38,11 @@ interface Props {
   structureInChapter?: DataStructure[]
   inChapter?: boolean
   structFolders?: Folder[]
+  listStructuresAllFoldersServer?: { folderId: string, listDataStructures: DataStructure[] }[]
 }
 
 function Structures(props: Props) {
-  const {inChapter, structFolders} = props;
+  const {inChapter, structFolders, listStructuresAllFoldersServer} = props;
   // useGetStructFolders()
   const inputRefs = useRef<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -59,19 +61,26 @@ function Structures(props: Props) {
   const [selectedEnecolor, setSelectedEnecolor] = useState<Enecolor>(null)
   const [enecolors, setEnecolors] = useState<Enecolor>(InitEnecolor)
   const [accessToken] = useAtom(accessTokenAtom)
+  const router = useRouter()
 
   useEnecolors()
   const {adminEnecolors} = useAdminEnecolors()
   useGetAllUserEnecolor(adminEnecolors)
 
-  useEffect(()=>{
-    if (structFolders?.length && !selectedStructFolder?.id)
-       setSelectedStructFolder(structFolders[0])
-  },[structFolders, accessToken])
-
   useEffect(() => {
-    getListDataStructure().then()
-  }, [selectedStructFolder?.id, accessToken])
+    if (structFolders?.length && !selectedStructFolder?.id)
+      setSelectedStructFolder(structFolders[0])
+  }, [structFolders, accessToken])
+
+  // useEffect(() => {
+  //   getListDataStructure().then()
+  // }, [selectedStructFolder?.id, accessToken])
+  useEffect(() => {
+    if(!selectedStructFolder?.id) return
+    const list = listStructuresAllFoldersServer.filter(x => x.folderId === selectedStructFolder?.id)
+    setListDataStructure(list?.[0]?.listDataStructures)
+    setListDataStructureOld(list?.[0]?.listDataStructures)
+  }, [listStructuresAllFoldersServer, selectedStructFolder?.id])
 
   useEffect(() => {
     if (size?.width >= 1800)
@@ -121,10 +130,13 @@ function Structures(props: Props) {
   const getListDataStructure = async () => {
     setIsLoading(true)
     try {
-      let data = await getDataStructure(selectedStructFolder?.id)
+      if (!selectedStructFolder?.id) return
+      let data = await getDataStructure(selectedStructFolder.id)
       let dataSort = sortBy(data?.dataStructures, ['index'], ['asc'])
+      console.log({dataSort})
       setListDataStructure(dataSort);
       setListDataStructureOld(dataSort);
+      router.refresh()
     } catch (err) {
       console.log(err);
     } finally {
@@ -216,7 +228,6 @@ function Structures(props: Props) {
     setSelectedEnecolor(null)
     setEnecolors(InitEnecolor)
   }
-  console.log(listDataStructure)
   return (
     <div className='flex w-full'>
       <div className={`relative space-y-8 w-full ${!checkStructInChapter() && 'tablet:mr-[70px]'}`}>
@@ -245,8 +256,8 @@ function Structures(props: Props) {
                     onDelete={onDelete}
                     dataStructure={dataStructure}
                     idValidate={idValidate}
-                    structureInChapter={listStructureSnapshot}
-                    setListDataStructure={setListStructureSnapshot}
+                    structureInChapter={listDataStructure}
+                    setListDataStructure={setListDataStructure}
                     inputRef={ref => inputRefs.current[dataStructure.index] = ref}
                     // onBlur={handleBlur}
                     setIdValidate={setIdValidate}

@@ -12,23 +12,38 @@ import {accessTokenAtom} from "@/app/store/atom/accessToken.atom";
 import {onAuthStateChanged, onIdTokenChanged} from "@firebase/auth";
 import {auth} from "@/app/configs/firebase";
 import store from "store";
-import {ACCESS_TOKEN_KEY} from "@/app/configs/constants";
+import {ACCESS_TOKEN_KEY, COOKIE_GENIAM_ACCESS_TOKEN_KEY} from "@/app/configs/constants";
+import Cookies from "js-cookie";
+import {revalidatePath} from "next/cache";
+import {useRouter} from "next/navigation";
 
 type Props = {
   children: ReactNode,
 }
 const queryClient = new QueryClient()
 axiosConfigs()
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production'
+const domain = isProd ? '.geniam.com' : null
+const expires = 365 //days
+
+function setCookie(name, value, options = {}) {
+  if (!value) return
+  return Cookies.set(name, value, {domain, expires, ...options})
+}
 
 function MainPageLayout({children}: Props) {
   const [accessToken, setAccessToken] = useAtom(accessTokenAtom)
+  const router = useRouter();
   useEffect(() => {
-      onAuthStateChanged(auth,
-        async (user) => {
-          // @ts-ignore
-          setAccessToken(user.accessToken)
-        })
-    },[])
+    onAuthStateChanged(auth,
+      async (user) => {
+        // @ts-ignore
+        setAccessToken(user.accessToken)
+        // @ts-ignore
+        setCookie(COOKIE_GENIAM_ACCESS_TOKEN_KEY, user.accessToken)
+        router.refresh();
+      })
+  }, [])
   return (
     <div className='bg-white h-full relative'>
       <Header/>
